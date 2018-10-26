@@ -38,5 +38,9 @@ suite =
                         |> Expect.equal [("5k",""),("8k",""),("5mi",""),("10k",""),("15k",""),("10mi",""),("20k",""),("HalfMar",""),("25k",""),("30k",""),("Marathon","")]
             ]
         , describe ".trainingPaces"
-            [ todo "returns a list of training paces" ]
+            [ test "returns a list of training paces"
+                <| \_ ->
+                    MPRLevel.trainingPaces 1
+                        |> Expect.equal [("Easy",("0:11:29","0:12:38")),("Moderate",("0:11:04","0:11:09")),("SteadyState",("0:10:38","0:10:44")),("Brisk",("0:10:13","0:10:18")),("AerobicThreshold",("0:09:48","0:09:53")),("LactateThreshold",("0:09:22","0:09:27")),("Groove",("0:08:57","0:09:02")),("VO2Max",("0:08:32","0:08:36")),("Fast",("0:08:06","0:08:11"))]
+            ]
         ]
