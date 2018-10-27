@@ -46,11 +46,11 @@ end
 
 def compileTrainingPaces(cells)
   paces = %w(Easy Moderate SteadyState Brisk AerobicThreshold LactateThreshold Groove VO2Max Fast)
-  res = {}
+  res = []
 
   12.times do |row|
     5.times do |col|
-      level = row * 5 + (col + 1)
+      level = row * 5 + col
       res[level] = []
       cell_x = row * 99 + col * 2 + 1
       paces.each_with_index do |pace, idx|
