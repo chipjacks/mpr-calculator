@@ -6,7 +6,7 @@ import Array exposing (Array)
 import Result
 
 distanceList : List String
-distanceList = ["5k", "8k", "5mi", "10k", "15k", "10mi", "20k", "HalfMar", "25k", "30k", "Marathon"]
+distanceList = ["5k", "8k", "5mi", "10k", "15k", "10mi", "20k", "HalfMarathon", "25k", "30k", "Marathon"]
 
 paceList : List String
 paceList = ["Easy", "Moderate", "SteadyState", "Brisk", "AerobicThreshold", "LactateThreshold", "Groove", "VO2Max", "Fast"]
@@ -65,9 +65,10 @@ lookup distance seconds =
 
 equivalentRaceTimes : Int -> Result String (List (String, String))
 equivalentRaceTimes level =
-  Dict.toList neutralRunnerTable
+  distanceList
+    |> List.map (\d -> (d, Dict.get d neutralRunnerTable |> Maybe.withDefault Array.empty))
     |> List.map (\(k, v) -> (k, Array.get level v |> Result.fromMaybe "out of range"))
-    |> List.foldl (\(k, v) b ->
+    |> List.foldr (\(k, v) b ->
       b |> Result.andThen (\l ->
         v |> Result.andThen (\i ->
           Ok ((k, i) :: l)
