@@ -40,7 +40,7 @@ timeToSeconds hours minutes seconds =
     + (minutes * 60)
     + seconds
 
-timeStrToSeconds : String -> Int
+timeStrToSeconds : String -> Result String Int
 timeStrToSeconds str =
   let
     times = String.split ":" str
@@ -48,37 +48,35 @@ timeStrToSeconds str =
   in
     case times of
         [hours, minutes, seconds] ->
-          timeToSeconds hours minutes seconds
+          Ok (timeToSeconds hours minutes seconds)
     
         _ ->
-          0
+          Err ("invalid time: " ++ str)
   
   
 lookup : String -> Int -> Result String Int
 lookup distance seconds =
-  let
-    levelNum = Dict.get distance neutralRunnerTable 
-      |> Maybe.map (Array.map timeStrToSeconds)
-      |> Maybe.map (Array.filter (\time -> time > seconds))
-      |> Maybe.map Array.length
-  in
-    case levelNum of
-      Just 0 ->
-        Err "out of range"
-      Just 61 ->
-        Err "out of range"
-      Nothing ->
-        Err ("invalid distance: " ++ distance)
-      Just level ->
-        Ok level
+  Dict.get distance neutralRunnerTable
+      |> Result.fromMaybe ("invalid distance: " ++ distance)
+      |> Result.andThen (\times ->
+          Array.map timeStrToSeconds times
+          |> Array.foldl (\a b -> Result.map (\v -> v + 1) b) (Ok 0) )
 
 
-equivalentRaceTimes : Int -> List (String, String)
+equivalentRaceTimes : Int -> Result String (List (String, String))
 equivalentRaceTimes level =
-  List.map (\k -> (k, Dict.get k neutralRunnerTable |> Maybe.withDefault Array.empty) ) distanceList -- we should already know key is in dict if it was gotten from lookup
-    |> List.map (\(k, v) -> (k, Array.get level v |> Maybe.withDefault ""))
+  Dict.toList neutralRunnerTable
+    |> List.map (\(k, v) -> (k, Array.get level v |> Result.fromMaybe "out of range"))
+    |> List.foldl (\(k, v) b ->
+      b |> Result.andThen (\l ->
+        v |> Result.andThen (\i ->
+          Ok ((k, i) :: l)
+        )
+      )
+    ) (Ok [])
 
 
+-- TODO: Error handling, refactoring
 trainingPaces : Int -> List (String, (String, String))
 trainingPaces level =
   let
