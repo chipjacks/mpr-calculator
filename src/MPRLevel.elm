@@ -57,10 +57,11 @@ timeStrToSeconds str =
 lookup : String -> Int -> Result String Int
 lookup distance seconds =
   Dict.get distance neutralRunnerTable
-      |> Result.fromMaybe ("invalid distance: " ++ distance)
-      |> Result.andThen (\times ->
-          Array.map timeStrToSeconds times
-          |> Array.foldl (\a b -> Result.map (\v -> v + 1) b) (Ok 0) )
+    |> Result.fromMaybe ("invalid distance: " ++ distance)
+    |> Result.andThen (Array.map timeStrToSeconds >> Ok)
+    |> Result.andThen (Array.foldr (Result.map2 (::)) (Ok []))
+    |> Result.andThen (List.filter (\n -> n > seconds) >> Ok)
+    |> Result.andThen (List.length >> Ok)
 
 
 equivalentRaceTimes : Int -> Result String (List (String, String))

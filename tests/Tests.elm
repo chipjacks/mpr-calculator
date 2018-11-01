@@ -32,7 +32,7 @@ suite =
                 <| \_ ->
                     MPRLevel.equivalentRaceTimes 1
                         |> Expect.equal (Ok [("5k","0:27:45"),("8k","0:45:36"),("5mi","0:45:52"),("10k","0:58:00"),("15k","1:28:57"),("10mi","1:35:52"),("20k","2:01:13"),("HalfMarathon","2:08:28"),("25k","2:33:13"),("30k","3:05:55"),("Marathon","4:27:56")])
-            , test "returns empty times when given invalid level"
+            , test "returns an error when given an invalid level"
                 <| \_ ->
                     MPRLevel.equivalentRaceTimes 100
                         |> Expect.equal (Err "out of range")
