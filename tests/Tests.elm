@@ -41,11 +41,14 @@ suite =
             [ test "returns a list of training paces for level 1"
                 <| \_ ->
                     MPRLevel.trainingPaces 1
-                        |> Expect.equal [("Easy",("0:11:29","0:12:38")),("Moderate",("0:11:04","0:11:09")),("SteadyState",("0:10:38","0:10:44")),("Brisk",("0:10:13","0:10:18")),("AerobicThreshold",("0:09:48","0:09:53")),("LactateThreshold",("0:09:22","0:09:27")),("Groove",("0:08:57","0:09:02")),("VO2Max",("0:08:32","0:08:36")),("Fast",("0:08:06","0:08:11"))]
+                        |> Expect.equal (Ok [("Easy",("0:11:29","0:12:38")),("Moderate",("0:11:04","0:11:09")),("SteadyState",("0:10:38","0:10:44")),("Brisk",("0:10:13","0:10:18")),("AerobicThreshold",("0:09:48","0:09:53")),("LactateThreshold",("0:09:22","0:09:27")),("Groove",("0:08:57","0:09:02")),("VO2Max",("0:08:32","0:08:36")),("Fast",("0:08:06","0:08:11"))])
             , test "returns a list of training paces for level 60"
                 <| \_ ->
                     MPRLevel.trainingPaces 60
-                        |> Expect.equal [("Easy",("0:05:36","0:06:09")),("Moderate",("0:05:23","0:05:29")),("SteadyState",("0:05:11","0:05:17")),("Brisk",("0:04:59","0:05:04")),("AerobicThreshold",("0:04:46","0:04:52")),("LactateThreshold",("0:04:34","0:04:39")),("Groove",("0:04:22","0:04:26")),("VO2Max",("0:04:09","0:04:14")),("Fast",("0:03:57","0:04:01"))]
-            , todo "returns empty times when given an invalid level"
+                        |> Expect.equal (Ok [("Easy",("0:05:36","0:06:09")),("Moderate",("0:05:23","0:05:29")),("SteadyState",("0:05:11","0:05:17")),("Brisk",("0:04:59","0:05:04")),("AerobicThreshold",("0:04:46","0:04:52")),("LactateThreshold",("0:04:34","0:04:39")),("Groove",("0:04:22","0:04:26")),("VO2Max",("0:04:09","0:04:14")),("Fast",("0:03:57","0:04:01"))])
+            , test "returns an error when given an invalid level"
+                <| \_ ->
+                    MPRLevel.trainingPaces 61
+                        |> Expect.equal (Err "out of range")
             ]
         ]

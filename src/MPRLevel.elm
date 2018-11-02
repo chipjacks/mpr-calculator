@@ -62,6 +62,7 @@ lookup distance seconds =
     |> Result.andThen (Array.foldr (Result.map2 (::)) (Ok []))
     |> Result.andThen (List.filter (\n -> n > seconds) >> Ok)
     |> Result.andThen (List.length >> Ok)
+    |> Result.andThen (\l -> if l == 61 || l == 0 then Err "out of range" else Ok l)
 
 
 equivalentRaceTimes : Int -> Result String (List (String, String))
@@ -78,15 +79,14 @@ equivalentRaceTimes level =
     ) (Ok [])
 
 
--- TODO: Error handling, refactoring
-trainingPaces : Int -> List (String, (String, String))
+trainingPaces : Int -> Result String (List (String, (String, String)))
 trainingPaces level =
   let
     res = Array.get (level - 1) trainingPacesTable
   in
     case res of
         Just arr ->
-          Array.toList arr |> List.map2 (\x y -> Tuple.pair x y) paceList
+          Ok (Array.toList arr |> List.map2 (\x y -> Tuple.pair x y) paceList)
 
         Nothing ->
-          []
+          Err "out of range"
