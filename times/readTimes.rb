@@ -102,16 +102,18 @@ def parseTable(table, runner_type)
     end
 end
 
-if @file && @table
-  puts JSON.generate(parseTable(@file, @table))
-else
-  TABLES.each do |table, runner_types|
-    runner_types.each do |runner_type, table_title|
-      results = parseTable(table, runner_type)
-      puts runner_type.to_s + table.to_s.capitalize + ' = """'
-      puts JSON.generate(results)
-      puts '"""'
-      puts
+if __FILE__ == $PROGRAM_NAME
+  if @file && @table
+    puts JSON.generate(parseTable(@file, @table))
+  else
+    TABLES.each do |table, runner_types|
+      runner_types.each do |runner_type, table_title|
+        results = parseTable(table, runner_type)
+        puts runner_type.to_s + table.to_s.capitalize + ' = """'
+        puts JSON.generate(results)
+        puts '"""'
+        puts
+      end
     end
   end
 end
