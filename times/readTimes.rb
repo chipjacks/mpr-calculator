@@ -4,9 +4,36 @@ require 'pry'
 require 'optparse'
 require 'optparse/time'
 
+TABLES =
+  { race:
+    { neutral: 'Neutral_Runners',
+      aerobic: 'Aerobic_Monsters',
+      speed: 'Speed_Demons'
+    },
+    training:
+    { neutral: 'NR',
+      aerobic: 'AM',
+      speed: 'SD'
+    }
+  }
+
+FILES =
+  { race: 'MPRRaceTimes.html',
+    training: 'MPRTrainingPaces.html'
+  }
+
 OptionParser.new do |parser|
-  parser.on("-t", "--table TABLE", %w(race training), "Choose which table to parse") do |table|
-    @table = table
+  parser.on("-f", "--file FILE", FILES.keys, "Choose which file to parse") do |file|
+    @file = file.to_sym
+  end
+
+  parser.on("-t", "--table TABLE", TABLES[:race].keys, "Choose which runner type table to parse") do |table|
+    @table = table.to_sym
+  end
+
+  parser.on("-h", "--help", "Prints this help") do
+    puts parser
+    exit
   end
 end.parse!
 
@@ -17,7 +44,7 @@ end
 
 def extractTableCells(htmlFile, tableTitle)
   file = File.open(htmlFile) { |f| Nokogiri::HTML(f) }
-  cells = file.xpath("//*[text()[contains(.,'#{tableTitle}')]]/following::table[1]//td/div/text()")
+  cells = file.xpath("//a[contains(@name,'#{tableTitle}')]/following::table[1]//td/div/text()")
   cells = cells.to_a.select { |t| !t.to_s.sub(/\S/, '').empty? }
 end
 
@@ -62,11 +89,29 @@ def compileTrainingPaces(cells)
 
   res
 end
- 
-if @table == 'race' then
-  raceTimesList = extractTableCells('MPRRaceTimes.html', 'Neutral Runners')
-  puts JSON.generate(compileRaceTimes(raceTimesList))
-elsif @table == 'training'
-  trainingPacesList = extractTableCells('MPRTrainingPaces.html', 'Neutral Runners')
-  puts JSON.generate(compileTrainingPaces(trainingPacesList))
+
+def parseTable(table, runner_type)
+  file_name = FILES[table]
+  table_title = TABLES[table][runner_type]
+  cells = extractTableCells(file_name, table_title)
+  results =
+    if table == :race
+      compileRaceTimes(cells)
+    else
+      compileTrainingPaces(cells)
+    end
+end
+
+if @file && @table
+  puts JSON.generate(parseTable(@file, @table))
+else
+  TABLES.each do |table, runner_types|
+    runner_types.each do |runner_type, table_title|
+      results = parseTable(table, runner_type)
+      puts runner_type.to_s + table.to_s.capitalize + ' = """'
+      puts JSON.generate(results)
+      puts '"""'
+      puts
+    end
+  end
 end
