@@ -3,8 +3,9 @@ module Tests exposing (..)
 import Expect exposing (Expectation)
 import Fuzz exposing (Fuzzer, int, list, string)
 import Test exposing (..)
-import MPRLevel
+import MPRLevel exposing (RunnerType(..))
 
+threeHours = 3 * 60 * 60
 
 suite : Test
 suite =
@@ -12,19 +13,27 @@ suite =
         [ describe ".lookup"
             [ test "returns the correct level"
                 <| \_ ->
-                    MPRLevel.lookup "5k" 840
-                        |> Expect.equal (Ok 56)
+                    MPRLevel.lookup Neutral "Marathon" threeHours
+                        |> Expect.equal (Ok 38)
+            , test "returns the correct level for aerobic monsters"
+                <| \_ ->
+                    MPRLevel.lookup Aerobic "Marathon" threeHours
+                        |> Expect.equal (Ok 37)
+            , test "returns the correct level for speed demons"
+                <| \_ ->
+                    MPRLevel.lookup Speed "Marathon" threeHours
+                        |> Expect.equal (Ok 39)
             , test "returns error when time is too fast"
                 <| \_ ->
-                    MPRLevel.lookup "5k" 40
+                    MPRLevel.lookup Neutral "5k" 40
                         |> Expect.equal (Err "out of range")
             , test "returns error when time is too slow"
                 <| \_ ->
-                    MPRLevel.lookup "5k" 4000
+                    MPRLevel.lookup Neutral "5k" 4000
                         |> Expect.equal (Err "out of range")
             , test "returns error when distance is invalid"
                 <| \_ ->
-                    MPRLevel.lookup "1.5k" 4000
+                    MPRLevel.lookup Neutral "1.5k" 4000
                         |> Expect.equal (Err "invalid distance: 1.5k")
             ]
         , describe ".equivalentRaceTimes"

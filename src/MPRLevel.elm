@@ -1,4 +1,4 @@
-module MPRLevel exposing (timeToSeconds, lookup, equivalentRaceTimes, trainingPaces)
+module MPRLevel exposing (timeToSeconds, lookup, equivalentRaceTimes, trainingPaces, RunnerType(..))
 
 import MPRData
 import Json.Decode exposing (decodeString, dict, array, list, string)
@@ -12,6 +12,10 @@ distanceList = ["5k", "8k", "5mi", "10k", "15k", "10mi", "20k", "HalfMarathon", 
 paceList : List String
 paceList = ["Easy", "Moderate", "SteadyState", "Brisk", "AerobicThreshold", "LactateThreshold", "Groove", "VO2Max", "Fast"]
 
+type RunnerType
+  = Neutral
+  | Aerobic
+  | Speed
 
 neutralRunnerTable = decodeString (dict (array string)) MPRData.neutralRace |> Result.withDefault Dict.empty
 
@@ -49,11 +53,28 @@ timeStrToSeconds str =
     
         _ ->
           Err ("invalid time: " ++ str)
-  
-  
-lookup : String -> Int -> Result String Int
-lookup distance seconds =
-  Dict.get distance neutralRunnerTable
+
+
+equivalentRaceTimesTable : RunnerType -> Dict String (Array String)
+equivalentRaceTimesTable runnerType =
+  let
+      json =
+        case runnerType of
+          Neutral ->
+            MPRData.neutralRace
+
+          Aerobic ->
+            MPRData.aerobicRace
+
+          Speed ->
+            MPRData.speedRace
+  in
+    decodeString (dict (array string)) json |> Result.withDefault Dict.empty
+
+
+lookup : RunnerType -> String -> Int -> Result String Int
+lookup runnerType distance seconds =
+  Dict.get distance (equivalentRaceTimesTable runnerType)
     |> Result.fromMaybe ("invalid distance: " ++ distance)
     |> Result.andThen (Array.map timeStrToSeconds >> Ok)
     |> Result.andThen (Array.foldr (Result.map2 (::)) (Ok []))
