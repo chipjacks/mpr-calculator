@@ -1,11 +1,10 @@
--- https://web.archive.org/web/20170901132452/http://mprunning.com:80/RaceTimes.html
-
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (onInput)
 import Json.Decode exposing (decodeString, dict, list, string)
 import Dict
+import MPRLevel exposing (..)
 
 
 main =
@@ -16,7 +15,8 @@ main =
 
 
 type alias Model =
-  { distance : String
+  { runnerType : RunnerType
+  , distance : String
   , hours : Maybe Int
   , minutes : Maybe Int
   , seconds : Maybe Int
@@ -26,15 +26,15 @@ type alias Model =
 
 init : Model
 init =
-  Model "" Nothing Nothing Nothing (Err "Fill in form to see level")
-
+  Model Neutral "" Nothing Nothing Nothing (Err "Fill in form to see level")
 
 
 -- UPDATE
 
 
 type Msg
-    = Distance String
+    = RunnerType RunnerType
+    | Distance String
     | Hours Int
     | Minutes Int
     | Seconds Int
@@ -43,6 +43,9 @@ type Msg
 update : Msg -> Model -> Model
 update msg model =
   case msg of
+    RunnerType rt ->
+      { model | runnerType = rt }
+
     Distance dist ->
       { model | distance = dist }
 
@@ -56,10 +59,10 @@ update msg model =
       { model | seconds = Just secs }
     
 
-updateLevel : Model -> Int
+updateLevel : Model -> Result String (RunnerType, Int)
 updateLevel model =
-  timeToSeconds (Maybe.withDefault 0 model.hours) (Maybe.withDefault 0 model.minutes) (Maybe.withDefault 0 model.seconds)
-    |> lookupLevel model.distance
+  (Debug.log "seconds" (timeToSeconds (Maybe.withDefault 0 model.hours) (Maybe.withDefault 0 model.minutes) (Maybe.withDefault 0 model.seconds)))
+    |> lookup model.runnerType (Debug.log "distance" model.distance)
   -- validateInput model
     -- validateDistance
     -- validateTime
@@ -91,20 +94,20 @@ view model =
             , option [ value "Marathon" ] [ text "Marathon" ] 
             ]
         , text "Hours"
-        , input [ type_ "number" ] []
+        , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Hours), type_ "number" ] []
         , text "Minutes"
-        , input [ type_ "number" ] []
+        , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Minutes), type_ "number" ] []
         , text "Seconds"
-        , input [ type_ "number" ] []
+        , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Seconds), type_ "number" ] []
         ]
       , viewLevel (updateLevel model)
     ]
 
-viewLevel : Int -> Html Msg
+viewLevel : Result String (RunnerType, Int) -> Html Msg
 viewLevel level =
-  -- case level of
-    -- Ok number ->
-      div [] [ text ("You're level " ++ (String.fromInt level)) ]
+  case level of
+    Ok (rt, number) ->
+      div [] [ text ("You're level " ++ (String.fromInt number)) ]
     
-    -- Err error ->
-    --   div [] [ text error ]
+    Err error ->
+      div [] [ text error ]
