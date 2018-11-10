@@ -14,15 +14,15 @@ suite =
             [ test "returns the correct level"
                 <| \_ ->
                     MPRLevel.lookup Neutral "Marathon" threeHours
-                        |> Expect.equal (Ok 38)
+                        |> Expect.equal (Ok (Neutral, 38))
             , test "returns the correct level for aerobic monsters"
                 <| \_ ->
                     MPRLevel.lookup Aerobic "Marathon" threeHours
-                        |> Expect.equal (Ok 37)
+                        |> Expect.equal (Ok (Aerobic, 37))
             , test "returns the correct level for speed demons"
                 <| \_ ->
                     MPRLevel.lookup Speed "Marathon" threeHours
-                        |> Expect.equal (Ok 39)
+                        |> Expect.equal (Ok (Speed, 39))
             , test "returns error when time is too fast"
                 <| \_ ->
                     MPRLevel.lookup Neutral "5k" 40
@@ -39,25 +39,25 @@ suite =
         , describe ".equivalentRaceTimes"
             [ test "returns an ordered list of race times"
                 <| \_ ->
-                    MPRLevel.equivalentRaceTimes 1
+                    MPRLevel.equivalentRaceTimes (Neutral, 1)
                         |> Expect.equal (Ok [("5k","0:27:45"),("8k","0:45:36"),("5mi","0:45:52"),("10k","0:58:00"),("15k","1:28:57"),("10mi","1:35:52"),("20k","2:01:13"),("HalfMarathon","2:08:28"),("25k","2:33:13"),("30k","3:05:55"),("Marathon","4:27:56")])
             , test "returns an error when given an invalid level"
                 <| \_ ->
-                    MPRLevel.equivalentRaceTimes 100
+                    MPRLevel.equivalentRaceTimes (Neutral, 100)
                         |> Expect.equal (Err "out of range")
             ]
         , describe ".trainingPaces"
             [ test "returns a list of training paces for level 1"
                 <| \_ ->
-                    MPRLevel.trainingPaces 1
+                    MPRLevel.trainingPaces (Neutral, 1)
                         |> Expect.equal (Ok [("Easy",("0:11:29","0:12:38")),("Moderate",("0:11:04","0:11:09")),("SteadyState",("0:10:38","0:10:44")),("Brisk",("0:10:13","0:10:18")),("AerobicThreshold",("0:09:48","0:09:53")),("LactateThreshold",("0:09:22","0:09:27")),("Groove",("0:08:57","0:09:02")),("VO2Max",("0:08:32","0:08:36")),("Fast",("0:08:06","0:08:11"))])
             , test "returns a list of training paces for level 60"
                 <| \_ ->
-                    MPRLevel.trainingPaces 60
+                    MPRLevel.trainingPaces (Neutral, 60)
                         |> Expect.equal (Ok [("Easy",("0:05:36","0:06:09")),("Moderate",("0:05:23","0:05:29")),("SteadyState",("0:05:11","0:05:17")),("Brisk",("0:04:59","0:05:04")),("AerobicThreshold",("0:04:46","0:04:52")),("LactateThreshold",("0:04:34","0:04:39")),("Groove",("0:04:22","0:04:26")),("VO2Max",("0:04:09","0:04:14")),("Fast",("0:03:57","0:04:01"))])
             , test "returns an error when given an invalid level"
                 <| \_ ->
-                    MPRLevel.trainingPaces 61
+                    MPRLevel.trainingPaces (Neutral, 61)
                         |> Expect.equal (Err "out of range")
             ]
         ]

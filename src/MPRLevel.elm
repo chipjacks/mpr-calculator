@@ -17,13 +17,6 @@ type RunnerType
   | Aerobic
   | Speed
 
-neutralRunnerTable = decodeString (dict (array string)) MPRData.neutralRace |> Result.withDefault Dict.empty
-
-trainingPacesTable : Array (Array (String, String))
-trainingPacesTable = decodeString (array (array (list string))) MPRData.neutralTraining
-  |> Result.withDefault Array.empty
-  |> Array.map (\a -> Array.map (\t -> toTuple t |> Maybe.withDefault ("", "")) a )
-
 
 toTuple : List a -> Maybe (a, a)
 toTuple l =
@@ -40,6 +33,7 @@ timeToSeconds hours minutes seconds =
   (hours * 60 * 60)
     + (minutes * 60)
     + seconds
+
 
 timeStrToSeconds : String -> Result String Int
 timeStrToSeconds str =
@@ -72,7 +66,26 @@ equivalentRaceTimesTable runnerType =
     decodeString (dict (array string)) json |> Result.withDefault Dict.empty
 
 
-lookup : RunnerType -> String -> Int -> Result String Int
+trainingPacesTable : RunnerType -> Array (Array (String, String))
+trainingPacesTable runnerType =
+  let
+      json =
+        case runnerType of
+          Neutral ->
+            MPRData.neutralTraining
+
+          Aerobic ->
+            MPRData.aerobicTraining
+
+          Speed ->
+            MPRData.speedTraining
+  in
+    decodeString (array (array (list string))) json
+      |> Result.withDefault Array.empty
+      |> Array.map (\a -> Array.map (\t -> toTuple t |> Maybe.withDefault ("", "")) a )
+
+
+lookup : RunnerType -> String -> Int -> Result String (RunnerType, Int)
 lookup runnerType distance seconds =
   Dict.get distance (equivalentRaceTimesTable runnerType)
     |> Result.fromMaybe ("invalid distance: " ++ distance)
@@ -80,13 +93,13 @@ lookup runnerType distance seconds =
     |> Result.andThen (Array.foldr (Result.map2 (::)) (Ok []))
     |> Result.andThen (List.filter (\n -> n > seconds) >> Ok)
     |> Result.andThen (List.length >> Ok)
-    |> Result.andThen (\l -> if l == 61 || l == 0 then Err "out of range" else Ok l)
+    |> Result.andThen (\l -> if l == 61 || l == 0 then Err "out of range" else Ok (runnerType, l))
 
 
-equivalentRaceTimes : Int -> Result String (List (String, String))
-equivalentRaceTimes level =
+equivalentRaceTimes : (RunnerType, Int) -> Result String (List (String, String))
+equivalentRaceTimes (runnerType, level) =
   distanceList
-    |> List.map (\d -> (d, Dict.get d neutralRunnerTable |> Maybe.withDefault Array.empty))
+    |> List.map (\d -> (d, Dict.get d (equivalentRaceTimesTable runnerType) |> Maybe.withDefault Array.empty))
     |> List.map (\(k, v) -> (k, Array.get level v |> Result.fromMaybe "out of range"))
     |> List.foldr (\(k, v) b ->
       b |> Result.andThen (\l ->
@@ -97,10 +110,10 @@ equivalentRaceTimes level =
     ) (Ok [])
 
 
-trainingPaces : Int -> Result String (List (String, (String, String)))
-trainingPaces level =
+trainingPaces : (RunnerType, Int) -> Result String (List (String, (String, String)))
+trainingPaces (runnerType, level) =
   let
-    res = Array.get (level - 1) trainingPacesTable
+    res = Array.get (level - 1) (trainingPacesTable runnerType)
   in
     case res of
         Just arr ->
