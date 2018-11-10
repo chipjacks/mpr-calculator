@@ -6,47 +6,14 @@ import Dict exposing (Dict)
 import Array exposing (Array)
 import Result
 
+
+-- Load tables
+
 distanceList : List String
 distanceList = ["5k", "8k", "5mi", "10k", "15k", "10mi", "20k", "HalfMarathon", "25k", "30k", "Marathon"]
 
 paceList : List String
 paceList = ["Easy", "Moderate", "SteadyState", "Brisk", "AerobicThreshold", "LactateThreshold", "Groove", "VO2Max", "Fast"]
-
-type RunnerType
-  = Neutral
-  | Aerobic
-  | Speed
-
-
-toTuple : List a -> Maybe (a, a)
-toTuple l =
-  case l of
-      [a, b] ->
-        Just (a, b)
-
-      _ ->
-        Nothing
-
-
-timeToSeconds : Int -> Int -> Int -> Int
-timeToSeconds hours minutes seconds =
-  (hours * 60 * 60)
-    + (minutes * 60)
-    + seconds
-
-
-timeStrToSeconds : String -> Result String Int
-timeStrToSeconds str =
-  let
-    times = String.split ":" str
-      |> List.map (String.toInt >> Maybe.withDefault 0)
-  in
-    case times of
-        [hours, minutes, seconds] ->
-          Ok (timeToSeconds hours minutes seconds)
-    
-        _ ->
-          Err ("invalid time: " ++ str)
 
 
 equivalentRaceTimesTable : RunnerType -> Dict String (Array String)
@@ -85,6 +52,14 @@ trainingPacesTable runnerType =
       |> Array.map (\a -> Array.map (\t -> toTuple t |> Maybe.withDefault ("", "")) a )
 
 
+-- Access Tables
+
+type RunnerType
+  = Neutral
+  | Aerobic
+  | Speed
+
+
 lookup : RunnerType -> String -> Int -> Result String (RunnerType, Int)
 lookup runnerType distance seconds =
   Dict.get distance (equivalentRaceTimesTable runnerType)
@@ -121,3 +96,36 @@ trainingPaces (runnerType, level) =
 
         Nothing ->
           Err "out of range"
+
+
+-- Utility functions
+
+toTuple : List a -> Maybe (a, a)
+toTuple l =
+  case l of
+      [a, b] ->
+        Just (a, b)
+
+      _ ->
+        Nothing
+
+
+timeToSeconds : Int -> Int -> Int -> Int
+timeToSeconds hours minutes seconds =
+  (hours * 60 * 60)
+    + (minutes * 60)
+    + seconds
+
+
+timeStrToSeconds : String -> Result String Int
+timeStrToSeconds str =
+  let
+    times = String.split ":" str
+      |> List.map (String.toInt >> Maybe.withDefault 0)
+  in
+    case times of
+        [hours, minutes, seconds] ->
+          Ok (timeToSeconds hours minutes seconds)
+
+        _ ->
+          Err ("invalid time: " ++ str)
