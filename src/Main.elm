@@ -79,7 +79,13 @@ view : Model -> Html Msg
 view model =
   div []
     [ div []
-        [ text "Distance"
+        [ text "Runner Type"
+        , select [ onInput (runnerTypeFromString >> RunnerType) ]
+            [ option [ value "Neutral" ] [ text "Neutral Runner" ]
+            , option [ value "Aerobic" ] [ text "Aerobic Monster" ]
+            , option [ value "Speed" ] [ text "Speed Demon" ]
+            ]
+        , text "Distance"
         , select [ onInput Distance ]
             [ option [ value "5k" ] [ text "5k" ] 
             , option [ value "8k" ] [ text "8k" ] 

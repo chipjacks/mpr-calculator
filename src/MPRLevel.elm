@@ -1,4 +1,4 @@
-module MPRLevel exposing (timeToSeconds, lookup, equivalentRaceTimes, trainingPaces, RunnerType(..))
+module MPRLevel exposing (timeToSeconds, lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), runnerTypeFromString)
 
 import MPRData
 import Json.Decode exposing (decodeString, dict, array, list, string)
@@ -99,6 +99,19 @@ trainingPaces (runnerType, level) =
 
 
 -- Utility functions
+
+runnerTypeFromString : String -> RunnerType
+runnerTypeFromString str =
+  case str of
+      "Aerobic" ->
+        Aerobic
+
+      "Speed" ->
+        Speed
+
+      _ ->
+        Neutral
+
 
 toTuple : List a -> Maybe (a, a)
 toTuple l =
