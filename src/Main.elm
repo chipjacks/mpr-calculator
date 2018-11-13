@@ -1,9 +1,7 @@
 import Browser
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onInput)
-import Json.Decode exposing (decodeString, dict, list, string)
-import Dict
+import Html.Events exposing (onInput, onClick)
 import MPRLevel exposing (..)
 
 
@@ -67,13 +65,6 @@ updateLevel : Model -> Result String (RunnerType, Int)
 updateLevel model =
   timeToSeconds (Maybe.withDefault 0 model.hours) (Maybe.withDefault 0 model.minutes) (Maybe.withDefault 0 model.seconds)
     |> lookup model.runnerType model.distance
-  -- validateInput model
-    -- validateDistance
-    -- validateTime
-  -- timeToSeconds hours minutes seconds
-  -- lookupLevel distance seconds
-    -- levelDict distance
-      -- distanceLevelList seconds
 
 
 -- VIEW
@@ -82,38 +73,43 @@ updateLevel model =
 view : Model -> Html Msg
 view model =
   div []
-    [ div []
-      [ text "Runner Type"
-      , select [ onInput (runnerTypeFromString >> RunnerType) ]
-          [ option [ value "Neutral" ] [ text "Neutral Runner" ]
-          , option [ value "Aerobic" ] [ text "Aerobic Monster" ]
-          , option [ value "Speed" ] [ text "Speed Demon" ]
+    [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" ] []
+    , div [ class "ui form container" ]
+      [ h4 [ class "ui dividing header" ] [ text "Runner Type" ]
+      , div [ class "ui top attached tabular menu" ]
+          [ menuItem RunnerType Neutral model.runnerType "Neutral Runner"
+          , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster"
+          , menuItem RunnerType Speed model.runnerType "Speed Demon"
           ]
-      , text "Distance"
-      , select [ onInput Distance ]
-          [ option [ value "5k" ] [ text "5k" ]
-          , option [ value "8k" ] [ text "8k" ]
-          , option [ value "5mi" ] [ text "5 mile" ]
-          , option [ value "10k" ] [ text "10k" ]
-          , option [ value "15k" ] [ text "15k" ]
-          , option [ value "10mi" ] [ text "10 mile" ]
-          , option [ value "20k" ] [ text "20k" ]
-          , option [ value "HalfMarathon" ] [ text "Half Marathon" ]
-          , option [ value "25k" ] [ text "25k" ]
-          , option [ value "30k" ] [ text "30k" ]
-          , option [ value "Marathon" ] [ text "Marathon" ]
-          ]
-      , text "Hours"
-      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Hours), type_ "number" ] []
-      , text "Minutes"
-      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Minutes), type_ "number" ] []
-      , text "Seconds"
-      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> Seconds), type_ "number" ] []
+      , div [ class "ui bottom attached segment" ]
+        [ text "These are runners who fair roughly equally as well against their peers over most races distance between 5k to marathon.  Neutral Runners make up 70-80% of all runners.  If you are not sure what type of runner you are use this category." ]
+      , h4 [ class "ui dividing header" ] [ text "Recent Race Distance" ]
+      , div [ class "ui eleven item menu" ] (MPRLevel.distanceList |> List.map (\d -> menuItem Distance d model.distance d))
+      , h4 [ class "ui dividing header" ] [ text "Recent Race Time" ]
+      , div [ class "fields" ]
+        [ timeInput "Hours" Hours
+        , timeInput "Minutes" Minutes
+        , timeInput "Seconds" Seconds
+        ]
       ]
     , viewLevel model.level
     , viewEquivalentRaceTimes model.level
     , viewTrainingPaces model.level
     ]
+
+
+menuItem : (a -> Msg) -> a -> a -> String -> Html Msg
+menuItem onClickMsg activatesValue modelValue textValue =
+  a [ class <| "item" ++ (if modelValue == activatesValue then " active" else ""), onClick (onClickMsg activatesValue) ] [ text textValue ]
+
+
+timeInput : String -> (Int -> Msg) -> Html Msg
+timeInput labelText msg =
+  div [ class "three wide field" ]
+    [ label [] [ text labelText ]
+    , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number" ] []
+    ]
+
 
 viewLevel : Result String (RunnerType, Int) -> Html Msg
 viewLevel level =
