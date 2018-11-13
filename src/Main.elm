@@ -83,17 +83,18 @@ view model =
           ]
       , div [ class "ui bottom attached segment" ]
         [ text "These are runners who fair roughly equally as well against their peers over most races distance between 5k to marathon.  Neutral Runners make up 70-80% of all runners.  If you are not sure what type of runner you are use this category." ]
-      , h4 [ class "ui dividing header" ] [ text "Recent Race Distance" ]
-      , div [ class "ui eleven item menu" ] (MPRLevel.distanceList |> List.map (\d -> menuItem Distance d model.distance d))
-      , h4 [ class "ui dividing header" ] [ text "Recent Race Time" ]
-      , div [ class "fields" ]
-        [ timeInput "Hours" Hours
-        , timeInput "Minutes" Minutes
-        , timeInput "Seconds" Seconds
+      , h4 [ class "ui dividing header" ] [ text "Recent Race" ]
+      , div [ class "ui grid" ]
+        [ div [ class "three wide column" ]
+          [ timeInput "Hours" Hours
+          , timeInput "Minutes" Minutes
+          , timeInput "Seconds" Seconds
+          ]
+        , div [ class "three wide column" ]
+          [ viewEquivalentRaceTimes model.distance model.level ]
         ]
       ]
     , viewLevel model.level
-    , viewEquivalentRaceTimes model.level
     , viewTrainingPaces model.level
     ]
 
@@ -105,9 +106,30 @@ menuItem onClickMsg activatesValue modelValue textValue =
 
 timeInput : String -> (Int -> Msg) -> Html Msg
 timeInput labelText msg =
-  div [ class "three wide field" ]
+  div [ class "field" ]
     [ label [] [ text labelText ]
     , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number" ] []
+    ]
+
+
+viewEquivalentRaceTimes : String -> Result String (RunnerType, Int) -> Html Msg
+viewEquivalentRaceTimes modelDistance level =
+  let
+    timesList = level |> Result.andThen equivalentRaceTimes
+  in
+    case timesList of
+      Ok list ->
+        div [ class "ui selection list" ] (list |> List.map (\(d, time) -> distanceListItem d modelDistance (Just time)))
+
+      Err error ->
+        div [ class "ui selection list" ] (MPRLevel.distanceList |> List.map (\d -> distanceListItem d modelDistance Nothing))
+
+
+distanceListItem : String -> String -> Maybe String -> Html Msg
+distanceListItem distance modelDistance timeStr =
+  div [ class <| "item" ++ (if distance == modelDistance then " active" else ""), onClick (Distance distance) ]
+    [ div [ class "right floated content" ] [ div [class "description"] [text (Maybe.withDefault "" timeStr) ] ]
+    , a [ class "content" ] [ div [class "header"] [ text distance ] ]
     ]
 
 
@@ -119,23 +141,6 @@ viewLevel level =
 
     Err error ->
       div [] [ text error ]
-
-
-viewEquivalentRaceTimes : Result String (RunnerType, Int) -> Html Msg
-viewEquivalentRaceTimes level =
-  let
-    timesList = level |> Result.andThen equivalentRaceTimes
-  in
-    case timesList of
-      Ok list ->
-        div []
-          [ text "Equivalent Race Times"
-          ,  ul []
-              (list |> List.map (\(distance, time) -> li [] [ text (distance ++ ": " ++ time) ]))
-          ]
-
-      Err error ->
-        div [] []
 
 
 viewTrainingPaces : Result String (RunnerType, Int) -> Html Msg
