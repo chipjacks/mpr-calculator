@@ -36,6 +36,7 @@ type Msg
     | Hours Int
     | Minutes Int
     | Seconds Int
+    | Race String String
 
 
 update : Msg -> Model -> Model
@@ -57,6 +58,15 @@ update msg model =
 
         Seconds secs ->
           { model | seconds = Just secs }
+
+        Race dist time ->
+          case timeStrToHrsMinsSecs time of
+            [hrs, mins, secs]   ->
+              { model | hours = Just hrs, minutes = Just mins, seconds = Just secs, distance = dist }
+
+            _ ->
+              { model | distance = dist }
+
   in
     Debug.log "Model" { newModel | level = updateLevel newModel }
 
@@ -86,9 +96,9 @@ view model =
       , h4 [ class "ui dividing header" ] [ text "Recent Race" ]
       , div [ class "ui grid" ]
         [ div [ class "three wide column" ]
-          [ timeInput "Hours" Hours
-          , timeInput "Minutes" Minutes
-          , timeInput "Seconds" Seconds
+          [ timeInput "Hours" Hours model.hours
+          , timeInput "Minutes" Minutes model.minutes
+          , timeInput "Seconds" Seconds model.seconds
           ]
         , div [ class "three wide column" ]
           [ viewEquivalentRaceTimes model.distance model.level ]
@@ -104,12 +114,21 @@ menuItem onClickMsg activatesValue modelValue textValue =
   a [ class <| "item" ++ (if modelValue == activatesValue then " active" else ""), onClick (onClickMsg activatesValue) ] [ text textValue ]
 
 
-timeInput : String -> (Int -> Msg) -> Html Msg
-timeInput labelText msg =
-  div [ class "field" ]
-    [ label [] [ text labelText ]
-    , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number" ] []
-    ]
+timeInput : String -> (Int -> Msg) -> Maybe Int -> Html Msg
+timeInput labelText msg modelValue =
+  let
+      inputText =
+        case modelValue of
+          Just val ->
+            String.fromInt val
+
+          _ ->
+            ""
+  in
+    div [ class "field" ]
+      [ label [] [ text labelText ]
+      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number", value inputText ] [ ]
+      ]
 
 
 viewEquivalentRaceTimes : String -> Result String (RunnerType, Int) -> Html Msg
@@ -127,7 +146,7 @@ viewEquivalentRaceTimes modelDistance level =
 
 distanceListItem : String -> String -> Maybe String -> Html Msg
 distanceListItem distance modelDistance timeStr =
-  div [ class <| "item" ++ (if distance == modelDistance then " active" else ""), onClick (Distance distance) ]
+  div [ class <| "item" ++ (if distance == modelDistance then " active" else ""), onClick (Race distance (Maybe.withDefault "" timeStr)) ]
     [ div [ class "right floated content" ] [ div [class "description"] [text (Maybe.withDefault "" timeStr) ] ]
     , a [ class "content" ] [ div [class "header"] [ text distance ] ]
     ]

@@ -1,4 +1,4 @@
-module MPRLevel exposing (timeToSeconds, lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList)
+module MPRLevel exposing (lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList, timeStrToHrsMinsSecs, timeToSeconds)
 
 import MPRData
 import Json.Decode exposing (decodeString, dict, array, list, string)
@@ -133,12 +133,17 @@ timeToSeconds hours minutes seconds =
 timeStrToSeconds : String -> Result String Int
 timeStrToSeconds str =
   let
-    times = String.split ":" str
-      |> List.map (String.toInt >> Maybe.withDefault 0)
+    times = timeStrToHrsMinsSecs str
   in
     case times of
-        [hours, minutes, seconds] ->
-          Ok (timeToSeconds hours minutes seconds)
+      [hours, minutes, seconds] ->
+        Ok (timeToSeconds hours minutes seconds)
 
-        _ ->
-          Err ("invalid time: " ++ str)
+      _ ->
+        Err ("invalid time: " ++ str)
+
+
+timeStrToHrsMinsSecs : String -> List Int
+timeStrToHrsMinsSecs str =
+  String.split ":" str
+    |> List.map (String.toInt >> Maybe.withDefault 0)
