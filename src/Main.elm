@@ -84,34 +84,44 @@ view : Model -> Html Msg
 view model =
   div []
     [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" ] []
-    , div [ class "ui form container" ]
-      [ h4 [ class "ui dividing header" ] [ text "Runner Type" ]
-      , div [ class "ui top attached tabular menu" ]
-          [ menuItem RunnerType Neutral model.runnerType "Neutral Runner"
-          , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster"
-          , menuItem RunnerType Speed model.runnerType "Speed Demon"
+    , div [ class "ui container" ]
+      [ div [ class "ui three steps" ]
+        [ div [ class "step" ] [ text "Runner Type" ]
+        , div [ class "step" ] [ text "Recent Race" ]
+        , div [ class "step" ] [ text "Training Paces" ]
+        ]
+      , div [ class "ui stackable three column grid" ]
+        [ div [ class "column" ]
+          [ div [ class "ui fluid vertical menu" ]
+            [ menuItem RunnerType Neutral model.runnerType "Neutral Runner"
+            , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster"
+            , menuItem RunnerType Speed model.runnerType "Speed Demon"
+            ]
           ]
-      , div [ class "ui bottom attached segment" ]
-        [ text "These are runners who fair roughly equally as well against their peers over most races distance between 5k to marathon.  Neutral Runners make up 70-80% of all runners.  If you are not sure what type of runner you are use this category." ]
-      , h4 [ class "ui dividing header" ] [ text "Recent Race" ]
-      , div [ class "ui grid" ]
-        [ div [ class "three wide column" ]
-          [ timeInput "Hours" Hours model.hours
-          , timeInput "Minutes" Minutes model.minutes
-          , timeInput "Seconds" Seconds model.seconds
+        , div [ class "column ui form" ]
+          [ div [ class "three fields" ]
+            [ timeInput "Hours" Hours model.hours
+            , timeInput "Minutes" Minutes model.minutes
+            , timeInput "Seconds" Seconds model.seconds
+            ]
+          , viewEquivalentRaceTimes model.distance model.level
           ]
-        , div [ class "three wide column" ]
-          [ viewEquivalentRaceTimes model.distance model.level ]
+        , div [ class "column" ]
+          [ viewTrainingPaces model.level
+          ]
+        , div [ class "four wide column" ]
+          [ viewLevel model.level ]
         ]
       ]
-    , viewLevel model.level
-    , viewTrainingPaces model.level
     ]
 
 
 menuItem : (a -> Msg) -> a -> a -> String -> Html Msg
 menuItem onClickMsg activatesValue modelValue textValue =
-  a [ class <| "item" ++ (if modelValue == activatesValue then " active" else ""), onClick (onClickMsg activatesValue) ] [ text textValue ]
+  a [ class <| "item" ++ (if modelValue == activatesValue then " active" else ""), onClick (onClickMsg activatesValue) ]
+    [ h4 [ class "ui header" ] [ text textValue ]
+    , p [] [ text "These are runners who fair roughly equally as well against their peers over most races distance between 5k to marathon.  Neutral Runners make up 70-80% of all runners.  If you are not sure what type of runner you are use this category." ]
+    ]
 
 
 timeInput : String -> (Int -> Msg) -> Maybe Int -> Html Msg
@@ -169,11 +179,16 @@ viewTrainingPaces level =
   in
     case pacesList of
       Ok list ->
-        div []
-          [ text "Training Paces"
-          ,  ul []
-              (list |> List.map (\(pace, (min, max)) -> li [] [ text (pace ++ ": " ++ min ++ " - " ++ max) ]))
-          ]
+        div [ class "ui list" ]
+          (list |> List.map (\(pace, range) -> trainingPaceListItem pace range))
 
       Err error ->
         div [] []
+
+
+trainingPaceListItem : String -> (String, String) -> Html msg
+trainingPaceListItem paceName (minPace, maxPace) =
+  div [ class "item" ]
+    [ div [ class "right floated content" ] [ div [ class "description" ] [ text (minPace ++ " - " ++ maxPace) ] ]
+    , div [ class "content" ] [ div [ class "header" ] [ text paceName ] ]
+    ]
