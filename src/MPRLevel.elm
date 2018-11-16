@@ -1,4 +1,4 @@
-module MPRLevel exposing (lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList, timeStrToHrsMinsSecs, timeToSeconds)
+module MPRLevel exposing (lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList, paceList, timeStrToHrsMinsSecs, timeToSeconds)
 
 import MPRData
 import Json.Decode exposing (decodeString, dict, array, list, string)

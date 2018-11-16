@@ -85,17 +85,21 @@ view model =
   div []
     [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" ] []
     , div [ class "ui container" ]
-      [ div [ class "ui three steps" ]
-        [ div [ class "step" ] [ text "Runner Type" ]
-        , div [ class "step" ] [ text "Recent Race" ]
-        , div [ class "step" ] [ text "Training Paces" ]
+      [ h2 [ class "ui icon center aligned header" ]
+        [ i [ class "road icon" ] []
+        , div [ class "content" ] [ text "Maximum Performance Running Calculator" ]
+        ]
+      , div [ class "ui three fluid steps" ]
+        [ stepItem "Runner Type" "Choose a category based on how you perform against your peers"
+        , stepItem "Recent Race" "Enter your time for a recent race and see equivalent times for other distances"
+        , stepItem "Training Paces" "View recommended paces for various workout intensities"
         ]
       , div [ class "ui stackable three column grid" ]
         [ div [ class "column" ]
           [ div [ class "ui fluid vertical menu" ]
-            [ menuItem RunnerType Neutral model.runnerType "Neutral Runner"
-            , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster"
-            , menuItem RunnerType Speed model.runnerType "Speed Demon"
+            [ menuItem RunnerType Neutral model.runnerType "Neutral Runner" "You fair roughly equally as well over most races distances from 5k to marathon. If you are not sure what type of runner you are use this category."
+            , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster" "You out perform your peers over the longer races but struggle in the shorter distances."
+            , menuItem RunnerType Speed model.runnerType "Speed Demon" "You out perform your peers in the short distances but struggle in the longer races."
             ]
           ]
         , div [ class "column ui form" ]
@@ -109,18 +113,24 @@ view model =
         , div [ class "column" ]
           [ viewTrainingPaces model.level
           ]
-        , div [ class "four wide column" ]
-          [ viewLevel model.level ]
         ]
       ]
     ]
 
 
-menuItem : (a -> Msg) -> a -> a -> String -> Html Msg
-menuItem onClickMsg activatesValue modelValue textValue =
+stepItem : String -> String -> Html msg
+stepItem title description =
+  div [ class "step" ]
+    [ div [ class "title" ] [ text title ]
+    , div [ class "description" ] [ text description ]
+    ]
+
+
+menuItem : (a -> Msg) -> a -> a -> String -> String -> Html Msg
+menuItem onClickMsg activatesValue modelValue textValue textDescription =
   a [ class <| "item" ++ (if modelValue == activatesValue then " active" else ""), onClick (onClickMsg activatesValue) ]
     [ h4 [ class "ui header" ] [ text textValue ]
-    , p [] [ text "These are runners who fair roughly equally as well against their peers over most races distance between 5k to marathon.  Neutral Runners make up 70-80% of all runners.  If you are not sure what type of runner you are use this category." ]
+    , p [] [ text textDescription ]
     ]
 
 
@@ -179,16 +189,26 @@ viewTrainingPaces level =
   in
     case pacesList of
       Ok list ->
-        div [ class "ui list" ]
-          (list |> List.map (\(pace, range) -> trainingPaceListItem pace range))
+        div [ class "ui relaxed list" ]
+          (list |> List.map (\(pace, range) -> trainingPaceListItem pace (Just range)))
 
       Err error ->
-        div [] []
+        div [ class "ui relaxed list" ]
+          (MPRLevel.paceList |> List.map (\pace -> trainingPaceListItem pace Nothing))
 
 
-trainingPaceListItem : String -> (String, String) -> Html msg
-trainingPaceListItem paceName (minPace, maxPace) =
+trainingPaceListItem : String -> Maybe (String, String) -> Html msg
+trainingPaceListItem paceName paces =
+  let
+    paceDescription = case paces of
+      Just (minPace, maxPace) ->
+        minPace ++ " - " ++ maxPace
+
+      Nothing ->
+        ""
+  in
+
   div [ class "item" ]
-    [ div [ class "right floated content" ] [ div [ class "description" ] [ text (minPace ++ " - " ++ maxPace) ] ]
+    [ div [ class "right floated content" ] [ div [ class "description" ] [ text paceDescription ] ]
     , div [ class "content" ] [ div [ class "header" ] [ text paceName ] ]
     ]
