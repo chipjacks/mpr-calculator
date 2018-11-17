@@ -89,21 +89,24 @@ view model =
         [ i [ class "road icon" ] []
         , div [ class "content" ] [ text "Maximum Performance Running Calculator" ]
         ]
-      , div [ class "ui three fluid steps" ]
-        [ stepItem "Runner Type" "Choose a category based on how you perform against your peers"
-        , stepItem "Recent Race" "Enter your time for a recent race and see equivalent times for other distances"
-        , stepItem "Training Paces" "View recommended paces for various workout intensities"
-        ]
-      , div [ class "ui stackable three column grid" ]
+      , div [ class "ui stackable three column very relaxed grid" ]
         [ div [ class "column" ]
-          [ div [ class "ui fluid vertical menu" ]
+          [ h3 [ class "ui dividing header" ]
+            [ text "Runner Type"
+            , div [ class "sub header" ] [ text "Choose a category based on how you perform against your peers" ]
+            ]
+          , div [ class "ui fluid vertical menu" ]
             [ menuItem RunnerType Neutral model.runnerType "Neutral Runner" "You fair roughly equally as well over most races distances from 5k to marathon. If you are not sure what type of runner you are use this category."
             , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster" "You out perform your peers over the longer races but struggle in the shorter distances."
             , menuItem RunnerType Speed model.runnerType "Speed Demon" "You out perform your peers in the short distances but struggle in the longer races."
             ]
           ]
         , div [ class "column ui form" ]
-          [ div [ class "three fields" ]
+          [ h3 [ class "ui dividing header" ]
+            [ text "Recent Race"
+            , div [ class "sub header" ] [ text "Enter your time for a recent race and see equivalent times for other distances" ]
+            ]
+          , div [ class "three fields" ]
             [ timeInput "Hours" Hours model.hours
             , timeInput "Minutes" Minutes model.minutes
             , timeInput "Seconds" Seconds model.seconds
@@ -111,7 +114,11 @@ view model =
           , viewEquivalentRaceTimes model.distance model.level
           ]
         , div [ class "column" ]
-          [ viewTrainingPaces model.level
+          [ h3 [ class "ui dividing header" ]
+            [ text "Training Paces"
+            , div [ class "sub header" ] [ text "View recommended paces for various workout intensities" ]
+            ]
+          , viewTrainingPaces model.level
           ]
         ]
       ]
