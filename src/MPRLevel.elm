@@ -10,10 +10,10 @@ import Result
 -- Load tables
 
 distanceList : List String
-distanceList = ["5k", "8k", "5mi", "10k", "15k", "10mi", "20k", "HalfMarathon", "25k", "30k", "Marathon"]
+distanceList = ["5k", "8k", "5 mile", "10k", "15k", "10 mile", "20k", "Half Marathon", "25k", "30k", "Marathon"]
 
 paceList : List String
-paceList = ["Easy", "Moderate", "SteadyState", "Brisk", "AerobicThreshold", "LactateThreshold", "Groove", "VO2Max", "Fast"]
+paceList = ["Easy", "Moderate", "Steady State", "Brisk", "Aerobic Threshold", "Lactate Threshold", "Groove", "VO2 Max", "Fast"]
 
 
 equivalentRaceTimesTable : RunnerType -> Dict String (Array String)

@@ -49,7 +49,7 @@ def extractTableCells(htmlFile, tableTitle)
 end
 
 def compileRaceTimes(cells)
-  distances = %w(5k 8k 5mi 10k 15k 10mi 20k HalfMarathon 25k 30k Marathon)
+  distances = ["5k", "8k", "5 mile", "10k", "15k", "10 mile", "20k", "Half Marathon", "25k", "30k", "Marathon"]
   dict = {}
 
   distances.each_with_index do |dist, idx|
@@ -72,7 +72,7 @@ def compileRaceTimes(cells)
 end
 
 def compileTrainingPaces(cells)
-  paces = %w(Easy Moderate SteadyState Brisk AerobicThreshold LactateThreshold Groove VO2Max Fast)
+  paces = ["Easy", "Moderate", "Steady State", "Brisk", "Aerobic Threshold", "Lactate Threshold", "Groove", "VO2 Max", "Fast"]
   res = []
 
   12.times do |row|
