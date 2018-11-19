@@ -1,4 +1,4 @@
-module MPRLevel exposing (lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList, paceList, timeStrToHrsMinsSecs, timeToSeconds)
+module MPRLevel exposing (lookup, equivalentRaceTimes, trainingPaces, RunnerType(..), distanceList, paceList, timeStrToHrsMinsSecs, timeToSeconds, stripTimeStr)
 
 import MPRData
 import Json.Decode exposing (decodeString, dict, array, list, string)
@@ -147,3 +147,19 @@ timeStrToHrsMinsSecs : String -> List Int
 timeStrToHrsMinsSecs str =
   String.split ":" str
     |> List.map (String.toInt >> Maybe.withDefault 0)
+
+
+stripTimeStr : String -> String
+stripTimeStr str =
+  case timeStrToHrsMinsSecs str of
+    [0, min, sec] ->
+      String.fromInt min ++ ":" ++
+        case compare sec 10 of
+          LT ->
+            "0" ++ String.fromInt sec
+
+          _ ->
+            String.fromInt sec
+
+    _ ->
+      str

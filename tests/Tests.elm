@@ -60,4 +60,10 @@ suite =
                     MPRLevel.trainingPaces (Neutral, 61)
                         |> Expect.equal (Err "out of range")
             ]
+        , describe ".stripTimeStr"
+            [ test "removes leading zeros"
+                <| \_ ->
+                    MPRLevel.stripTimeStr "0:06:04"
+                        |> Expect.equal "6:04"
+            ]
         ]

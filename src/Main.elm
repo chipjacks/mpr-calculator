@@ -24,7 +24,7 @@ type alias Model =
 
 init : Model
 init =
-  Model Neutral "5k" Nothing Nothing Nothing (Err "Fill in form to see level")
+  Model Neutral "5k" Nothing Nothing Nothing (Err "Enter a recent race time and distance")
 
 
 -- UPDATE
@@ -97,8 +97,8 @@ view model =
             ]
           , div [ class "ui fluid vertical menu" ]
             [ menuItem RunnerType Neutral model.runnerType "Neutral Runner" "You fair roughly equally as well over most races distances from 5k to marathon. If you are not sure what type of runner you are use this category."
-            , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster" "You out perform your peers over the longer races but struggle in the shorter distances."
-            , menuItem RunnerType Speed model.runnerType "Speed Demon" "You out perform your peers in the short distances but struggle in the longer races."
+            , menuItem RunnerType Aerobic model.runnerType "Aerobic Monster" "You out perform your peers over the longer races but struggle in the shorter distances. Represents 10-15% of all runners."
+            , menuItem RunnerType Speed model.runnerType "Speed Demon" "You out perform your peers in the short distances but struggle in the longer races. Represents 10-15% of all runners."
             ]
           ]
         , div [ class "column ui form" ]
@@ -116,8 +116,9 @@ view model =
         , div [ class "column" ]
           [ h3 [ class "ui dividing header" ]
             [ text "Training Paces"
-            , div [ class "sub header" ] [ text "View recommended paces for various workout intensities" ]
+            , div [ class "sub header" ] [ text "View your level (0 - 60) and recommended paces for different workout intensities" ]
             ]
+          , div [ ] [ viewLevel model.level ]
           , viewTrainingPaces model.level
           ]
         ]
@@ -154,7 +155,7 @@ timeInput labelText msg modelValue =
   in
     div [ class "field" ]
       [ label [] [ text labelText ]
-      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number", value inputText ] [ ]
+      , input [ onInput (String.toInt >> Maybe.withDefault 0 >> msg), type_ "number", Html.Attributes.min "0", value inputText ] [ ]
       ]
 
 
@@ -174,7 +175,7 @@ viewEquivalentRaceTimes modelDistance level =
 distanceListItem : String -> String -> Maybe String -> Html Msg
 distanceListItem distance modelDistance timeStr =
   div [ class <| "item" ++ (if distance == modelDistance then " active" else ""), onClick (Race distance (Maybe.withDefault "" timeStr)) ]
-    [ div [ class "right floated content" ] [ div [class "description"] [text (Maybe.withDefault "" timeStr) ] ]
+    [ div [ class "right floated content" ] [ div [class "description"] [ timeStr |> Maybe.withDefault "" |> stripTimeStr |> text ] ]
     , a [ class "content" ] [ div [class "header"] [ text distance ] ]
     ]
 
@@ -183,10 +184,11 @@ viewLevel : Result String (RunnerType, Int) -> Html Msg
 viewLevel level =
   case level of
     Ok (rt, number) ->
-      div [] [ text ("You're level " ++ (String.fromInt number)) ]
+      div [ class "ui info message"  ]
+        [ text <| "Level " ++ String.fromInt number ]
 
     Err error ->
-      div [] [ text error ]
+      div [ class "ui warning message" ] [ text error ]
 
 
 viewTrainingPaces : Result String (RunnerType, Int) -> Html Msg
@@ -209,13 +211,12 @@ trainingPaceListItem paceName paces =
   let
     paceDescription = case paces of
       Just (minPace, maxPace) ->
-        minPace ++ " - " ++ maxPace
+        (stripTimeStr minPace) ++ " - " ++ (stripTimeStr maxPace)
 
       Nothing ->
         ""
   in
-
-  div [ class "item" ]
-    [ div [ class "right floated content" ] [ div [ class "description" ] [ text paceDescription ] ]
-    , div [ class "content" ] [ div [ class "header" ] [ text paceName ] ]
-    ]
+    div [ class "item" ]
+      [ div [ class "right floated content" ] [ div [ class "description" ] [ text paceDescription ] ]
+      , div [ class "content" ] [ div [ class "header" ] [ text paceName ] ]
+      ]
