@@ -63,12 +63,12 @@ type RunnerType
 lookup : RunnerType -> String -> Int -> Result String (RunnerType, Int)
 lookup runnerType distance seconds =
   Dict.get distance (equivalentRaceTimesTable runnerType)
-    |> Result.fromMaybe ("invalid distance: " ++ distance)
+    |> Result.fromMaybe ("Invalid distance: " ++ distance)
     |> Result.andThen (Array.map timeStrToSeconds >> Ok)
     |> Result.andThen (Array.foldr (Result.map2 (::)) (Ok []))
     |> Result.andThen (List.filter (\n -> n > seconds) >> Ok)
     |> Result.andThen (List.length >> Ok)
-    |> Result.andThen (\l -> if l == 61 || l == 0 then Err "out of range" else Ok (runnerType, l))
+    |> Result.andThen (\l -> if l == 61 then Err "That time is too fast!" else if l == 0 then Err "That time is too slow!" else Ok (runnerType, l))
 
 
 equivalentRaceTimes : (RunnerType, Int) -> Result String (List (String, String))
@@ -140,7 +140,7 @@ timeStrToSeconds str =
         Ok (timeToSeconds hours minutes seconds)
 
       _ ->
-        Err ("invalid time: " ++ str)
+        Err ("Invalid time: " ++ str)
 
 
 timeStrToHrsMinsSecs : String -> List Int

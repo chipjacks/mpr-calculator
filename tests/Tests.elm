@@ -26,15 +26,15 @@ suite =
             , test "returns error when time is too fast"
                 <| \_ ->
                     MPRLevel.lookup Neutral "5k" 40
-                        |> Expect.equal (Err "out of range")
+                        |> Expect.equal (Err "That time is too fast!")
             , test "returns error when time is too slow"
                 <| \_ ->
                     MPRLevel.lookup Neutral "5k" 4000
-                        |> Expect.equal (Err "out of range")
+                        |> Expect.equal (Err "That time is too slow!")
             , test "returns error when distance is invalid"
                 <| \_ ->
                     MPRLevel.lookup Neutral "1.5k" 4000
-                        |> Expect.equal (Err "invalid distance: 1.5k")
+                        |> Expect.equal (Err "Invalid distance: 1.5k")
             ]
         , describe ".equivalentRaceTimes"
             [ test "returns an ordered list of race times"
