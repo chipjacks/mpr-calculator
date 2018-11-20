@@ -5930,12 +5930,21 @@ var elm$virtual_dom$VirtualDom$node = function (tag) {
 		_VirtualDom_noScript(tag));
 };
 var elm$html$Html$node = elm$virtual_dom$VirtualDom$node;
+var elm$virtual_dom$VirtualDom$attribute = F2(
+	function (key, value) {
+		return A2(
+			_VirtualDom_attribute,
+			_VirtualDom_noOnOrFormAction(key),
+			_VirtualDom_noJavaScriptOrHtmlUri(value));
+	});
+var elm$html$Html$Attributes$attribute = elm$virtual_dom$VirtualDom$attribute;
 var elm$html$Html$Attributes$href = function (url) {
 	return A2(
 		elm$html$Html$Attributes$stringProperty,
 		'href',
 		_VirtualDom_noJavaScriptUri(url));
 };
+var elm$html$Html$Attributes$name = elm$html$Html$Attributes$stringProperty('name');
 var elm$html$Html$Attributes$rel = _VirtualDom_attribute('rel');
 var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
@@ -5952,6 +5961,15 @@ var author$project$Main$view = function (model) {
 					[
 						elm$html$Html$Attributes$rel('stylesheet'),
 						elm$html$Html$Attributes$href('https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css')
+					]),
+				_List_Nil),
+				A3(
+				elm$html$Html$node,
+				'meta',
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$name('viewport'),
+						A2(elm$html$Html$Attributes$attribute, 'content', 'width=device-width, initial-scale=1.0')
 					]),
 				_List_Nil),
 				A2(
