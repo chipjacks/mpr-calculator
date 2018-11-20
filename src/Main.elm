@@ -84,6 +84,7 @@ view : Model -> Html Msg
 view model =
   div []
     [ Html.node "link" [ Html.Attributes.rel "stylesheet", Html.Attributes.href "https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" ] []
+    , Html.node "meta" [ Html.Attributes.name "viewport", Html.Attributes.attribute "content" "width=device-width, initial-scale=1.0" ] []
     , div [ class "ui container" ]
       [ h1 [ class "ui center aligned header", style "padding" "30px 0px" ]
         [ div [ class "content" ] [ text "Maximum Performance Running Calculator" ]
