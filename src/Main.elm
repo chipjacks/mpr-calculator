@@ -73,8 +73,11 @@ update msg model =
 
 updateLevel : Model -> Result String (RunnerType, Int)
 updateLevel model =
-  timeToSeconds (Maybe.withDefault 0 model.hours) (Maybe.withDefault 0 model.minutes) (Maybe.withDefault 0 model.seconds)
-    |> lookup model.runnerType model.distance
+  if [model.hours, model.minutes, model.seconds] |> List.any (\v -> v /= Nothing) then
+    timeToSeconds (Maybe.withDefault 0 model.hours) (Maybe.withDefault 0 model.minutes) (Maybe.withDefault 0 model.seconds)
+      |> lookup model.runnerType model.distance
+  else
+    Err "Enter a recent race time and distance"
 
 
 -- VIEW
