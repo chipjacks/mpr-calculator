@@ -43,7 +43,7 @@ update : Msg -> Model -> Model
 update msg model =
   let
     newModel =
-      case (Debug.log "Message" msg) of
+      case msg of
         RunnerType rt ->
           { model | runnerType = rt }
 
@@ -68,7 +68,7 @@ update msg model =
               { model | distance = dist }
 
   in
-    Debug.log "Model" { newModel | level = updateLevel newModel }
+    { newModel | level = updateLevel newModel }
 
 
 updateLevel : Model -> Result String (RunnerType, Int)
