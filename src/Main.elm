@@ -89,7 +89,7 @@ view model =
       [ h1 [ class "ui center aligned header", style "padding" "30px 0px" ]
         [ div [ class "content" ] [ text "Maximum Performance Running Calculator" ]
         ]
-      , div [ class "ui stackable three column very relaxed grid" ]
+      , div [ class "ui stackable three column relaxed grid" ]
         [ div [ class "column" ]
           [ h3 [ class "ui dividing header" ]
             [ text "Runner Type"
