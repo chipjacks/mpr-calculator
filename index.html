@@ -87,7 +87,7 @@ function A9(fun, a, b, c, d, e, f, g, h, i) {
   return fun.a === 9 ? fun.f(a, b, c, d, e, f, g, h, i) : fun(a)(b)(c)(d)(e)(f)(g)(h)(i);
 }
 
-console.warn('Compiled in DEV mode. Follow the advice at https://elm-lang.org/0.19.0/optimize for better performance and smaller assets.');
+
 
 
 var _JsArray_empty = [];
@@ -244,12 +244,12 @@ var _JsArray_appendN = F3(function(n, dest, source)
 
 // LOG
 
-var _Debug_log_UNUSED = F2(function(tag, value)
+var _Debug_log = F2(function(tag, value)
 {
 	return value;
 });
 
-var _Debug_log = F2(function(tag, value)
+var _Debug_log_UNUSED = F2(function(tag, value)
 {
 	console.log(tag + ': ' + _Debug_toString(value));
 	return value;
@@ -275,12 +275,12 @@ function _Debug_todoCase(moduleName, region, value)
 
 // TO STRING
 
-function _Debug_toString_UNUSED(value)
+function _Debug_toString(value)
 {
 	return '<internals>';
 }
 
-function _Debug_toString(value)
+function _Debug_toString_UNUSED(value)
 {
 	return _Debug_toAnsiString(false, value);
 }
@@ -451,13 +451,13 @@ function _Debug_internalColor(ansi, string)
 // CRASH
 
 
-function _Debug_crash_UNUSED(identifier)
+function _Debug_crash(identifier)
 {
 	throw new Error('https://github.com/elm/core/blob/1.0.0/hints/' + identifier + '.md');
 }
 
 
-function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
+function _Debug_crash_UNUSED(identifier, fact1, fact2, fact3, fact4)
 {
 	switch(identifier)
 	{
@@ -515,11 +515,11 @@ function _Debug_crash(identifier, fact1, fact2, fact3, fact4)
 
 function _Debug_regionToString(region)
 {
-	if (region.start.line === region.end.line)
+	if (region.ab.M === region.ag.M)
 	{
-		return 'on line ' + region.start.line;
+		return 'on line ' + region.ab.M;
 	}
-	return 'on lines ' + region.start.line + ' through ' + region.end.line;
+	return 'on lines ' + region.ab.M + ' through ' + region.ag.M;
 }
 
 
@@ -557,7 +557,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 		return false;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x.$ === 'Set_elm_builtin')
 	{
 		x = elm$core$Set$toList(x);
@@ -570,7 +570,7 @@ function _Utils_eqHelp(x, y, depth, stack)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (x.$ < 0)
 	{
 		x = elm$core$Dict$toList(x);
@@ -605,7 +605,7 @@ function _Utils_cmp(x, y, ord)
 		return x === y ? /*EQ*/ 0 : x < y ? /*LT*/ -1 : /*GT*/ 1;
 	}
 
-	/**/
+	/**_UNUSED/
 	if (x instanceof String)
 	{
 		var a = x.valueOf();
@@ -614,10 +614,10 @@ function _Utils_cmp(x, y, ord)
 	}
 	//*/
 
-	/**_UNUSED/
+	/**/
 	if (!x.$)
 	//*/
-	/**/
+	/**_UNUSED/
 	if (x.$[0] === '#')
 	//*/
 	{
@@ -647,17 +647,17 @@ var _Utils_compare = F2(function(x, y)
 
 // COMMON VALUES
 
-var _Utils_Tuple0_UNUSED = 0;
-var _Utils_Tuple0 = { $: '#0' };
+var _Utils_Tuple0 = 0;
+var _Utils_Tuple0_UNUSED = { $: '#0' };
 
-function _Utils_Tuple2_UNUSED(a, b) { return { a: a, b: b }; }
-function _Utils_Tuple2(a, b) { return { $: '#2', a: a, b: b }; }
+function _Utils_Tuple2(a, b) { return { a: a, b: b }; }
+function _Utils_Tuple2_UNUSED(a, b) { return { $: '#2', a: a, b: b }; }
 
-function _Utils_Tuple3_UNUSED(a, b, c) { return { a: a, b: b, c: c }; }
-function _Utils_Tuple3(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
+function _Utils_Tuple3(a, b, c) { return { a: a, b: b, c: c }; }
+function _Utils_Tuple3_UNUSED(a, b, c) { return { $: '#3', a: a, b: b, c: c }; }
 
-function _Utils_chr_UNUSED(c) { return c; }
-function _Utils_chr(c) { return new String(c); }
+function _Utils_chr(c) { return c; }
+function _Utils_chr_UNUSED(c) { return new String(c); }
 
 
 // RECORDS
@@ -708,11 +708,11 @@ function _Utils_ap(xs, ys)
 
 
 
-var _List_Nil_UNUSED = { $: 0 };
-var _List_Nil = { $: '[]' };
+var _List_Nil = { $: 0 };
+var _List_Nil_UNUSED = { $: '[]' };
 
-function _List_Cons_UNUSED(hd, tl) { return { $: 1, a: hd, b: tl }; }
-function _List_Cons(hd, tl) { return { $: '::', a: hd, b: tl }; }
+function _List_Cons(hd, tl) { return { $: 1, a: hd, b: tl }; }
+function _List_Cons_UNUSED(hd, tl) { return { $: '::', a: hd, b: tl }; }
 
 
 var _List_cons = F2(_List_Cons);
@@ -1210,7 +1210,7 @@ function _Char_toLocaleLower(char)
 
 
 
-/**/
+/**_UNUSED/
 function _Json_errorToString(error)
 {
 	return elm$json$Json$Decode$errorToString(error);
@@ -1610,11 +1610,11 @@ var _Json_encode = F2(function(indentLevel, value)
 	return JSON.stringify(_Json_unwrap(value), null, indentLevel) + '';
 });
 
-function _Json_wrap(value) { return { $: 0, a: value }; }
-function _Json_unwrap(value) { return value.a; }
+function _Json_wrap_UNUSED(value) { return { $: 0, a: value }; }
+function _Json_unwrap_UNUSED(value) { return value.a; }
 
-function _Json_wrap_UNUSED(value) { return value; }
-function _Json_unwrap_UNUSED(value) { return value; }
+function _Json_wrap(value) { return value; }
+function _Json_unwrap(value) { return value; }
 
 function _Json_emptyArray() { return []; }
 function _Json_emptyObject() { return {}; }
@@ -1851,9 +1851,9 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.aP,
+		impl.aY,
+		impl.aW,
 		function() { return function() {} }
 	);
 });
@@ -1866,7 +1866,7 @@ var _Platform_worker = F4(function(impl, flagDecoder, debugMetadata, args)
 function _Platform_initialize(flagDecoder, args, init, update, subscriptions, stepperBuilder)
 {
 	var result = A2(_Json_run, flagDecoder, _Json_wrap(args ? args['flags'] : undefined));
-	elm$core$Result$isOk(result) || _Debug_crash(2 /**/, _Json_errorToString(result.a) /**/);
+	elm$core$Result$isOk(result) || _Debug_crash(2 /**_UNUSED/, _Json_errorToString(result.a) /**/);
 	var managers = {};
 	result = init(result.a);
 	var model = result.a;
@@ -2265,7 +2265,7 @@ function _Platform_setupIncomingPort(name, sendToApp)
 //
 
 
-function _Platform_export_UNUSED(exports)
+function _Platform_export(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsProd(scope['Elm'], exports)
@@ -2286,7 +2286,7 @@ function _Platform_mergeExportsProd(obj, exports)
 }
 
 
-function _Platform_export(exports)
+function _Platform_export_UNUSED(exports)
 {
 	scope['Elm']
 		? _Platform_mergeExportsDebug('Elm', scope['Elm'], exports)
@@ -2326,10 +2326,10 @@ var _VirtualDom_init = F4(function(virtualNode, flagDecoder, debugMetadata, args
 {
 	// NOTE: this function needs _Platform_export available to work
 
-	/**_UNUSED/
+	/**/
 	var node = args['node'];
 	//*/
-	/**/
+	/**_UNUSED/
 	var node = args && args['node'] ? args['node'] : _Debug_crash(0);
 	//*/
 
@@ -2584,24 +2584,24 @@ function _VirtualDom_noInnerHtmlOrFormAction(key)
 	return key == 'innerHTML' || key == 'formAction' ? 'data-' + key : key;
 }
 
-function _VirtualDom_noJavaScriptUri_UNUSED(value)
+function _VirtualDom_noJavaScriptUri(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,'')) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptUri(value)
+function _VirtualDom_noJavaScriptUri_UNUSED(value)
 {
 	return /^javascript:/i.test(value.replace(/\s/g,''))
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
 		: value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
+function _VirtualDom_noJavaScriptOrHtmlUri(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value) ? '' : value;
 }
 
-function _VirtualDom_noJavaScriptOrHtmlUri(value)
+function _VirtualDom_noJavaScriptOrHtmlUri_UNUSED(value)
 {
 	return /^\s*(javascript:|data:text\/html)/i.test(value)
 		? 'javascript:alert("This is an XSS vector. Please use ports or web components instead.")'
@@ -2653,9 +2653,9 @@ var _VirtualDom_mapEventTuple = F2(function(func, tuple)
 var _VirtualDom_mapEventRecord = F2(function(func, record)
 {
 	return {
-		message: func(record.message),
-		stopPropagation: record.stopPropagation,
-		preventDefault: record.preventDefault
+		q: func(record.q),
+		ac: record.ac,
+		aa: record.aa
 	}
 });
 
@@ -2923,11 +2923,11 @@ function _VirtualDom_makeCallback(eventNode, initialHandler)
 		// 3 = Custom
 
 		var value = result.a;
-		var message = !tag ? value : tag < 3 ? value.a : value.message;
-		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.stopPropagation;
+		var message = !tag ? value : tag < 3 ? value.a : value.q;
+		var stopPropagation = tag == 1 ? value.b : tag == 3 && value.ac;
 		var currentEventNode = (
 			stopPropagation && event.stopPropagation(),
-			(tag == 2 ? value.b : tag == 3 && value.preventDefault) && event.preventDefault(),
+			(tag == 2 ? value.b : tag == 3 && value.aa) && event.preventDefault(),
 			eventNode
 		);
 		var tagger;
@@ -3914,15 +3914,15 @@ var _Browser_element = _Debugger_element || F4(function(impl, flagDecoder, debug
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.aP,
+		impl.aY,
+		impl.aW,
 		function(sendToApp, initialModel) {
-			var view = impl.view;
-			/**_UNUSED/
+			var view = impl.a_;
+			/**/
 			var domNode = args['node'];
 			//*/
-			/**/
+			/**_UNUSED/
 			var domNode = args && args['node'] ? args['node'] : _Debug_crash(0);
 			//*/
 			var currNode = _VirtualDom_virtualize(domNode);
@@ -3950,12 +3950,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 	return _Platform_initialize(
 		flagDecoder,
 		args,
-		impl.init,
-		impl.update,
-		impl.subscriptions,
+		impl.aP,
+		impl.aY,
+		impl.aW,
 		function(sendToApp, initialModel) {
-			var divertHrefToApp = impl.setup && impl.setup(sendToApp)
-			var view = impl.view;
+			var divertHrefToApp = impl.P && impl.P(sendToApp)
+			var view = impl.a_;
 			var title = _VirtualDom_doc.title;
 			var bodyNode = _VirtualDom_doc.body;
 			var currNode = _VirtualDom_virtualize(bodyNode);
@@ -3963,12 +3963,12 @@ var _Browser_document = _Debugger_document || F4(function(impl, flagDecoder, deb
 			{
 				_VirtualDom_divertHrefToApp = divertHrefToApp;
 				var doc = view(model);
-				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.body);
+				var nextNode = _VirtualDom_node('body')(_List_Nil)(doc.aG);
 				var patches = _VirtualDom_diff(currNode, nextNode);
 				bodyNode = _VirtualDom_applyPatches(bodyNode, currNode, patches, sendToApp);
 				currNode = nextNode;
 				_VirtualDom_divertHrefToApp = 0;
-				(title !== doc.title) && (_VirtualDom_doc.title = title = doc.title);
+				(title !== doc.aX) && (_VirtualDom_doc.title = title = doc.aX);
 			});
 		}
 	);
@@ -4019,12 +4019,12 @@ function _Browser_makeAnimator(model, draw)
 
 function _Browser_application(impl)
 {
-	var onUrlChange = impl.onUrlChange;
-	var onUrlRequest = impl.onUrlRequest;
+	var onUrlChange = impl.aS;
+	var onUrlRequest = impl.aT;
 	var key = function() { key.a(onUrlChange(_Browser_getUrl())); };
 
 	return _Browser_document({
-		setup: function(sendToApp)
+		P: function(sendToApp)
 		{
 			key.a = sendToApp;
 			_Browser_window.addEventListener('popstate', key);
@@ -4040,9 +4040,9 @@ function _Browser_application(impl)
 					var next = elm$url$Url$fromString(href).a;
 					sendToApp(onUrlRequest(
 						(next
-							&& curr.protocol === next.protocol
-							&& curr.host === next.host
-							&& curr.port_.a === next.port_.a
+							&& curr.au === next.au
+							&& curr.ak === next.ak
+							&& curr.ar.a === next.ar.a
 						)
 							? elm$browser$Browser$Internal(next)
 							: elm$browser$Browser$External(href)
@@ -4050,13 +4050,13 @@ function _Browser_application(impl)
 				}
 			});
 		},
-		init: function(flags)
+		aP: function(flags)
 		{
-			return A3(impl.init, flags, _Browser_getUrl(), key);
+			return A3(impl.aP, flags, _Browser_getUrl(), key);
 		},
-		view: impl.view,
-		update: impl.update,
-		subscriptions: impl.subscriptions
+		a_: impl.a_,
+		aY: impl.aY,
+		aW: impl.aW
 	});
 }
 
@@ -4122,17 +4122,17 @@ var _Browser_decodeEvent = F2(function(decoder, event)
 function _Browser_visibilityInfo()
 {
 	return (typeof _VirtualDom_doc.hidden !== 'undefined')
-		? { hidden: 'hidden', change: 'visibilitychange' }
+		? { aN: 'hidden', K: 'visibilitychange' }
 		:
 	(typeof _VirtualDom_doc.mozHidden !== 'undefined')
-		? { hidden: 'mozHidden', change: 'mozvisibilitychange' }
+		? { aN: 'mozHidden', K: 'mozvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.msHidden !== 'undefined')
-		? { hidden: 'msHidden', change: 'msvisibilitychange' }
+		? { aN: 'msHidden', K: 'msvisibilitychange' }
 		:
 	(typeof _VirtualDom_doc.webkitHidden !== 'undefined')
-		? { hidden: 'webkitHidden', change: 'webkitvisibilitychange' }
-		: { hidden: 'hidden', change: 'visibilitychange' };
+		? { aN: 'webkitHidden', K: 'webkitvisibilitychange' }
+		: { aN: 'hidden', K: 'visibilitychange' };
 }
 
 
@@ -4213,12 +4213,12 @@ var _Browser_call = F2(function(functionName, id)
 function _Browser_getViewport()
 {
 	return {
-		scene: _Browser_getScene(),
-		viewport: {
-			x: _Browser_window.pageXOffset,
-			y: _Browser_window.pageYOffset,
-			width: _Browser_doc.documentElement.clientWidth,
-			height: _Browser_doc.documentElement.clientHeight
+		az: _Browser_getScene(),
+		aC: {
+			X: _Browser_window.pageXOffset,
+			Y: _Browser_window.pageYOffset,
+			I: _Browser_doc.documentElement.clientWidth,
+			z: _Browser_doc.documentElement.clientHeight
 		}
 	};
 }
@@ -4228,8 +4228,8 @@ function _Browser_getScene()
 	var body = _Browser_doc.body;
 	var elem = _Browser_doc.documentElement;
 	return {
-		width: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
-		height: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
+		I: Math.max(body.scrollWidth, body.offsetWidth, elem.scrollWidth, elem.offsetWidth, elem.clientWidth),
+		z: Math.max(body.scrollHeight, body.offsetHeight, elem.scrollHeight, elem.offsetHeight, elem.clientHeight)
 	};
 }
 
@@ -4252,15 +4252,15 @@ function _Browser_getViewportOf(id)
 	return _Browser_withNode(id, function(node)
 	{
 		return {
-			scene: {
-				width: node.scrollWidth,
-				height: node.scrollHeight
+			az: {
+				I: node.scrollWidth,
+				z: node.scrollHeight
 			},
-			viewport: {
-				x: node.scrollLeft,
-				y: node.scrollTop,
-				width: node.clientWidth,
-				height: node.clientHeight
+			aC: {
+				X: node.scrollLeft,
+				Y: node.scrollTop,
+				I: node.clientWidth,
+				z: node.clientHeight
 			}
 		};
 	});
@@ -4290,18 +4290,18 @@ function _Browser_getElement(id)
 		var x = _Browser_window.pageXOffset;
 		var y = _Browser_window.pageYOffset;
 		return {
-			scene: _Browser_getScene(),
-			viewport: {
-				x: x,
-				y: y,
-				width: _Browser_doc.documentElement.clientWidth,
-				height: _Browser_doc.documentElement.clientHeight
+			az: _Browser_getScene(),
+			aC: {
+				X: x,
+				Y: y,
+				I: _Browser_doc.documentElement.clientWidth,
+				z: _Browser_doc.documentElement.clientHeight
 			},
-			element: {
-				x: x + rect.left,
-				y: y + rect.top,
-				width: rect.width,
-				height: rect.height
+			aI: {
+				X: x + rect.left,
+				Y: y + rect.top,
+				I: rect.width,
+				z: rect.height
 			}
 		};
 	});
@@ -4336,18 +4336,18 @@ function _Browser_load(url)
 		}
 	}));
 }
-var author$project$MPRLevel$Neutral = {$: 'Neutral'};
+var author$project$MPRLevel$Neutral = 0;
 var author$project$Main$Model = F6(
 	function (runnerType, distance, hours, minutes, seconds, level) {
-		return {distance: distance, hours: hours, level: level, minutes: minutes, runnerType: runnerType, seconds: seconds};
+		return {x: distance, A: hours, L: level, B: minutes, E: runnerType, F: seconds};
 	});
-var elm$core$Maybe$Nothing = {$: 'Nothing'};
+var elm$core$Maybe$Nothing = {$: 1};
 var elm$core$Result$Err = function (a) {
-	return {$: 'Err', a: a};
+	return {$: 1, a: a};
 };
 var author$project$Main$init = A6(
 	author$project$Main$Model,
-	author$project$MPRLevel$Neutral,
+	0,
 	'5k',
 	elm$core$Maybe$Nothing,
 	elm$core$Maybe$Nothing,
@@ -4362,8 +4362,8 @@ var elm$core$Basics$composeR = F3(
 		return g(
 			f(x));
 	});
-var elm$core$Basics$EQ = {$: 'EQ'};
-var elm$core$Basics$LT = {$: 'LT'};
+var elm$core$Basics$EQ = 1;
+var elm$core$Basics$LT = 0;
 var elm$core$Elm$JsArray$foldr = _JsArray_foldr;
 var elm$core$Array$foldr = F3(
 	function (func, baseCase, _n0) {
@@ -4371,7 +4371,7 @@ var elm$core$Array$foldr = F3(
 		var tail = _n0.d;
 		var helper = F2(
 			function (node, acc) {
-				if (node.$ === 'SubTree') {
+				if (!node.$) {
 					var subTree = node.a;
 					return A3(elm$core$Elm$JsArray$foldr, helper, acc, subTree);
 				} else {
@@ -4388,12 +4388,12 @@ var elm$core$Array$foldr = F3(
 var elm$core$Array$toList = function (array) {
 	return A3(elm$core$Array$foldr, elm$core$List$cons, _List_Nil, array);
 };
-var elm$core$Basics$GT = {$: 'GT'};
+var elm$core$Basics$GT = 2;
 var elm$core$Dict$foldr = F3(
 	function (func, acc, t) {
 		foldr:
 		while (true) {
-			if (t.$ === 'RBEmpty_elm_builtin') {
+			if (t.$ === -2) {
 				return acc;
 			} else {
 				var key = t.b;
@@ -4438,7 +4438,7 @@ var elm$core$Dict$keys = function (dict) {
 		dict);
 };
 var elm$core$Set$toList = function (_n0) {
-	var dict = _n0.a;
+	var dict = _n0;
 	return elm$core$Dict$keys(dict);
 };
 var elm$core$List$cons = _List_cons;
@@ -4537,7 +4537,7 @@ var elm$core$List$map = F2(
 	});
 var elm$core$Maybe$withDefault = F2(
 	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
+		if (!maybe.$) {
 			var value = maybe.a;
 			return value;
 		} else {
@@ -4545,7 +4545,7 @@ var elm$core$Maybe$withDefault = F2(
 		}
 	});
 var elm$core$Maybe$Just = function (a) {
-	return {$: 'Just', a: a};
+	return {$: 0, a: a};
 };
 var elm$core$String$split = F2(
 	function (sep, string) {
@@ -4565,11 +4565,11 @@ var author$project$MPRLevel$timeStrToHrsMinsSecs = function (str) {
 var author$project$MPRData$aerobicRace = '\n{"5k":["0:28:00","0:27:45","0:27:30","0:27:15","0:27:00","0:26:45","0:26:30","0:26:15","0:26:00","0:25:45","0:25:30","0:25:15","0:25:00","0:24:45","0:24:30","0:24:15","0:24:00","0:23:45","0:23:30","0:23:15","0:23:00","0:22:45","0:22:30","0:22:15","0:22:00","0:21:45","0:21:30","0:21:15","0:21:00","0:20:45","0:20:30","0:20:15","0:20:00","0:19:45","0:19:30","0:19:15","0:19:00","0:18:45","0:18:30","0:18:15","0:18:00","0:17:45","0:17:30","0:17:15","0:17:00","0:16:45","0:16:30","0:16:15","0:16:00","0:15:45","0:15:30","0:15:15","0:15:00","0:14:45","0:14:30","0:14:15","0:14:00","0:13:45","0:13:30","0:13:15","0:13:00"],"8k":["0:45:53","0:45:28","0:45:03","0:44:39","0:44:14","0:43:50","0:43:25","0:43:00","0:42:36","0:42:11","0:41:47","0:41:22","0:40:58","0:40:33","0:40:08","0:39:44","0:39:19","0:38:55","0:38:30","0:38:06","0:37:41","0:37:16","0:36:52","0:36:27","0:36:03","0:35:38","0:35:14","0:34:49","0:34:24","0:34:00","0:33:35","0:33:11","0:32:46","0:32:22","0:31:57","0:31:32","0:31:08","0:30:43","0:30:19","0:29:54","0:29:29","0:29:05","0:28:40","0:28:16","0:27:51","0:27:27","0:27:02","0:26:37","0:26:13","0:25:48","0:25:24","0:24:59","0:24:35","0:24:10","0:23:45","0:23:21","0:22:56","0:22:32","0:22:07","0:21:43","0:21:18"],"5 mile":["0:46:09","0:45:44","0:45:19","0:44:55","0:44:30","0:44:05","0:43:40","0:43:16","0:42:51","0:42:26","0:42:01","0:41:37","0:41:12","0:40:47","0:40:23","0:39:58","0:39:33","0:39:08","0:38:44","0:38:19","0:37:54","0:37:30","0:37:05","0:36:40","0:36:15","0:35:51","0:35:26","0:35:01","0:34:37","0:34:12","0:33:47","0:33:22","0:32:58","0:32:33","0:32:08","0:31:43","0:31:19","0:30:54","0:30:29","0:30:05","0:29:40","0:29:15","0:28:50","0:28:26","0:28:01","0:27:36","0:27:12","0:26:47","0:26:22","0:25:57","0:25:33","0:25:08","0:24:43","0:24:19","0:23:54","0:23:29","0:23:04","0:22:40","0:22:15","0:21:50","0:21:25"],"10k":["0:58:14","0:57:43","0:57:12","0:56:41","0:56:10","0:55:38","0:55:07","0:54:36","0:54:05","0:53:34","0:53:02","0:52:31","0:52:00","0:51:29","0:50:58","0:50:26","0:49:55","0:49:24","0:48:53","0:48:22","0:47:50","0:47:19","0:46:48","0:46:17","0:45:46","0:45:14","0:44:43","0:44:12","0:43:41","0:43:10","0:42:38","0:42:07","0:41:36","0:41:05","0:40:34","0:40:02","0:39:31","0:39:00","0:38:29","0:37:58","0:37:26","0:36:55","0:36:24","0:35:53","0:35:22","0:34:50","0:34:19","0:33:48","0:33:17","0:32:46","0:32:14","0:31:43","0:31:12","0:30:41","0:30:10","0:29:38","0:29:07","0:28:36","0:28:05","0:27:34","0:27:02"],"15k":["1:29:06","1:28:19","1:27:31","1:26:43","1:25:55","1:25:08","1:24:20","1:23:32","1:22:45","1:21:57","1:21:09","1:20:21","1:19:34","1:18:46","1:17:58","1:17:10","1:16:23","1:15:35","1:14:47","1:13:59","1:13:12","1:12:24","1:11:36","1:10:49","1:10:01","1:09:13","1:08:25","1:07:38","1:06:50","1:06:02","1:05:14","1:04:27","1:03:39","1:02:51","1:02:03","1:01:16","1:00:28","0:59:40","0:58:52","0:58:05","0:57:17","0:56:29","0:55:42","0:54:54","0:54:06","0:53:18","0:52:31","0:51:43","0:50:55","0:50:07","0:49:20","0:48:32","0:47:44","0:46:56","0:46:09","0:45:21","0:44:33","0:43:45","0:42:58","0:42:10","0:41:22"],"10 mile":["1:35:59","1:35:07","1:34:16","1:33:25","1:32:33","1:31:42","1:30:50","1:29:59","1:29:08","1:28:16","1:27:25","1:26:33","1:25:42","1:24:50","1:23:59","1:23:08","1:22:16","1:21:25","1:20:33","1:19:42","1:18:50","1:17:59","1:17:08","1:16:16","1:15:25","1:14:33","1:13:42","1:12:51","1:11:59","1:11:08","1:10:16","1:09:25","1:08:33","1:07:42","1:06:51","1:05:59","1:05:08","1:04:16","1:03:25","1:02:34","1:01:42","1:00:51","0:59:59","0:59:08","0:58:16","0:57:25","0:56:34","0:55:42","0:54:51","0:53:59","0:53:08","0:52:17","0:51:25","0:50:34","0:49:42","0:48:51","0:47:59","0:47:08","0:46:17","0:45:25","0:44:34"],"20k":["2:01:08","2:00:03","1:58:59","1:57:54","1:56:49","1:55:44","1:54:39","1:53:34","1:52:29","1:51:24","1:50:19","1:49:14","1:48:10","1:47:05","1:46:00","1:44:55","1:43:50","1:42:45","1:41:40","1:40:35","1:39:30","1:38:26","1:37:21","1:36:16","1:35:11","1:34:06","1:33:01","1:31:56","1:30:51","1:29:46","1:28:41","1:27:37","1:26:32","1:25:27","1:24:22","1:23:17","1:22:12","1:21:07","1:20:02","1:18:57","1:17:53","1:16:48","1:15:43","1:14:38","1:13:33","1:12:28","1:11:23","1:10:18","1:09:13","1:08:08","1:07:04","1:05:59","1:04:54","1:03:49","1:02:44","1:01:39","1:00:34","0:59:29","0:58:24","0:57:19","0:56:15"],"Half Marathon":["2:08:19","2:07:11","2:06:02","2:04:53","2:03:44","2:02:36","2:01:27","2:00:18","1:59:09","1:58:01","1:56:52","1:55:43","1:54:34","1:53:26","1:52:17","1:51:08","1:49:59","1:48:51","1:47:42","1:46:33","1:45:25","1:44:16","1:43:07","1:41:58","1:40:50","1:39:41","1:38:32","1:37:23","1:36:15","1:35:06","1:33:57","1:32:48","1:31:40","1:30:31","1:29:22","1:28:13","1:27:05","1:25:56","1:24:47","1:23:38","1:22:30","1:21:21","1:20:12","1:19:03","1:17:55","1:16:46","1:15:37","1:14:28","1:13:20","1:12:11","1:11:02","1:09:53","1:08:45","1:07:36","1:06:27","1:05:18","1:04:10","1:03:01","1:01:52","1:00:43","0:59:35"],"25k":["2:32:56","2:31:34","2:30:12","2:28:51","2:27:29","2:26:07","2:24:45","2:23:23","2:22:01","2:20:39","2:19:17","2:17:55","2:16:33","2:15:11","2:13:49","2:12:27","2:11:05","2:09:43","2:08:22","2:07:00","2:05:38","2:04:16","2:02:54","2:01:32","2:00:10","1:58:48","1:57:26","1:56:04","1:54:42","1:53:20","1:51:58","1:50:36","1:49:14","1:47:53","1:46:31","1:45:09","1:43:47","1:42:25","1:41:03","1:39:41","1:38:19","1:36:57","1:35:35","1:34:13","1:32:51","1:31:29","1:30:07","1:28:46","1:27:24","1:26:02","1:24:40","1:23:18","1:21:56","1:20:34","1:19:12","1:17:50","1:16:28","1:15:06","1:13:44","1:12:22","1:11:00"],"30k":["3:05:21","3:03:41","3:02:02","3:00:23","2:58:43","2:57:04","2:55:25","2:53:46","2:52:06","2:50:27","2:48:48","2:47:08","2:45:29","2:43:50","2:42:11","2:40:31","2:38:52","2:37:13","2:35:33","2:33:54","2:32:15","2:30:35","2:28:56","2:27:17","2:25:38","2:23:58","2:22:19","2:20:40","2:19:00","2:17:21","2:15:42","2:14:03","2:12:23","2:10:44","2:09:05","2:07:25","2:05:46","2:04:07","2:02:28","2:00:48","1:59:09","1:57:30","1:55:50","1:54:11","1:52:32","1:50:52","1:49:13","1:47:34","1:45:55","1:44:15","1:42:36","1:40:57","1:39:17","1:37:38","1:35:59","1:34:20","1:32:40","1:31:01","1:29:22","1:27:42","1:26:03"],"Marathon":["4:26:25","4:24:02","4:21:39","4:19:17","4:16:54","4:14:31","4:12:08","4:09:46","4:07:23","4:05:00","4:02:38","4:00:15","3:57:52","3:55:29","3:53:07","3:50:44","3:48:21","3:45:59","3:43:36","3:41:13","3:38:50","3:36:28","3:34:05","3:31:42","3:29:19","3:26:57","3:24:34","3:22:11","3:19:49","3:17:26","3:15:03","3:12:40","3:10:18","3:07:55","3:05:32","3:03:10","3:00:47","2:58:24","2:56:01","2:53:39","2:51:16","2:48:53","2:46:30","2:44:08","2:41:45","2:39:22","2:37:00","2:34:37","2:32:14","2:29:51","2:27:29","2:25:06","2:22:43","2:20:21","2:17:58","2:15:35","2:13:12","2:10:50","2:08:27","2:06:04","2:03:41"]}\n';
 var author$project$MPRData$neutralRace = '\n{"5k":["0:28:00","0:27:45","0:27:30","0:27:15","0:27:00","0:26:45","0:26:30","0:26:15","0:26:00","0:25:45","0:25:30","0:25:15","0:25:00","0:24:45","0:24:30","0:24:15","0:24:00","0:23:45","0:23:30","0:23:15","0:23:00","0:22:45","0:22:30","0:22:15","0:22:00","0:21:45","0:21:30","0:21:15","0:21:00","0:20:45","0:20:30","0:20:15","0:20:00","0:19:45","0:19:30","0:19:15","0:19:00","0:18:45","0:18:30","0:18:15","0:18:00","0:17:45","0:17:30","0:17:15","0:17:00","0:16:45","0:16:30","0:16:15","0:16:00","0:15:45","0:15:30","0:15:15","0:15:00","0:14:45","0:14:30","0:14:15","0:14:00","0:13:45","0:13:30","0:13:15","0:13:00"],"8k":["0:46:01","0:45:36","0:45:11","0:44:47","0:44:22","0:43:57","0:43:33","0:43:08","0:42:43","0:42:19","0:41:54","0:41:29","0:41:05","0:40:40","0:40:16","0:39:51","0:39:26","0:39:02","0:38:37","0:38:12","0:37:48","0:37:23","0:36:58","0:36:34","0:36:09","0:35:44","0:35:20","0:34:55","0:34:30","0:34:06","0:33:41","0:33:16","0:32:52","0:32:27","0:32:03","0:31:38","0:31:13","0:30:49","0:30:24","0:29:59","0:29:35","0:29:10","0:28:45","0:28:21","0:27:56","0:27:31","0:27:07","0:26:42","0:26:17","0:25:53","0:25:28","0:25:04","0:24:39","0:24:14","0:23:50","0:23:25","0:23:00","0:22:36","0:22:11","0:21:46","0:21:22"],"5 mile":["0:46:17","0:45:52","0:45:27","0:45:02","0:44:38","0:44:13","0:43:48","0:43:23","0:42:58","0:42:34","0:42:09","0:41:44","0:41:19","0:40:54","0:40:30","0:40:05","0:39:40","0:39:15","0:38:51","0:38:26","0:38:01","0:37:36","0:37:11","0:36:47","0:36:22","0:35:57","0:35:32","0:35:07","0:34:43","0:34:18","0:33:53","0:33:28","0:33:03","0:32:39","0:32:14","0:31:49","0:31:24","0:30:59","0:30:35","0:30:10","0:29:45","0:29:20","0:28:55","0:28:31","0:28:06","0:27:41","0:27:16","0:26:52","0:26:27","0:26:02","0:25:37","0:25:12","0:24:48","0:24:23","0:23:58","0:23:33","0:23:08","0:22:44","0:22:19","0:21:54","0:21:29"],"10k":["0:58:31","0:58:00","0:57:28","0:56:57","0:56:26","0:55:54","0:55:23","0:54:52","0:54:20","0:53:49","0:53:18","0:52:46","0:52:15","0:51:44","0:51:12","0:50:41","0:50:10","0:49:38","0:49:07","0:48:36","0:48:04","0:47:33","0:47:01","0:46:30","0:45:59","0:45:27","0:44:56","0:44:25","0:43:53","0:43:22","0:42:51","0:42:19","0:41:48","0:41:17","0:40:45","0:40:14","0:39:43","0:39:11","0:38:40","0:38:09","0:37:37","0:37:06","0:36:34","0:36:03","0:35:32","0:35:00","0:34:29","0:33:58","0:33:26","0:32:55","0:32:24","0:31:52","0:31:21","0:30:50","0:30:18","0:29:47","0:29:16","0:28:44","0:28:13","0:27:42","0:27:10"],"15k":["1:29:45","1:28:57","1:28:09","1:27:21","1:26:33","1:25:45","1:24:57","1:24:09","1:23:21","1:22:33","1:21:44","1:20:56","1:20:08","1:19:20","1:18:32","1:17:44","1:16:56","1:16:08","1:15:20","1:14:32","1:13:44","1:12:56","1:12:07","1:11:19","1:10:31","1:09:43","1:08:55","1:08:07","1:07:19","1:06:31","1:05:43","1:04:55","1:04:07","1:03:19","1:02:30","1:01:42","1:00:54","1:00:06","0:59:18","0:58:30","0:57:42","0:56:54","0:56:06","0:55:18","0:54:30","0:53:42","0:52:53","0:52:05","0:51:17","0:50:29","0:49:41","0:48:53","0:48:05","0:47:17","0:46:29","0:45:41","0:44:53","0:44:05","0:43:16","0:42:28","0:41:40"],"10 mile":["1:36:44","1:35:52","1:35:00","1:34:08","1:33:16","1:32:24","1:31:33","1:30:41","1:29:49","1:28:57","1:28:05","1:27:14","1:26:22","1:25:30","1:24:38","1:23:46","1:22:54","1:22:03","1:21:11","1:20:19","1:19:27","1:18:35","1:17:44","1:16:52","1:16:00","1:15:08","1:14:16","1:13:24","1:12:33","1:11:41","1:10:49","1:09:57","1:09:05","1:08:14","1:07:22","1:06:30","1:05:38","1:04:46","1:03:54","1:03:03","1:02:11","1:01:19","1:00:27","0:59:35","0:58:44","0:57:52","0:57:00","0:56:08","0:55:16","0:54:24","0:53:33","0:52:41","0:51:49","0:50:57","0:50:05","0:49:14","0:48:22","0:47:30","0:46:38","0:45:46","0:44:54"],"20k":["2:02:18","2:01:13","2:00:07","1:59:02","1:57:56","1:56:51","1:55:45","1:54:40","1:53:34","1:52:29","1:51:23","1:50:18","1:49:12","1:48:07","1:47:01","1:45:56","1:44:50","1:43:45","1:42:39","1:41:33","1:40:28","1:39:22","1:38:17","1:37:11","1:36:06","1:35:00","1:33:55","1:32:49","1:31:44","1:30:38","1:29:33","1:28:27","1:27:22","1:26:16","1:25:11","1:24:05","1:23:00","1:21:54","1:20:49","1:19:43","1:18:38","1:17:32","1:16:27","1:15:21","1:14:15","1:13:10","1:12:04","1:10:59","1:09:53","1:08:48","1:07:42","1:06:37","1:05:31","1:04:26","1:03:20","1:02:15","1:01:09","1:00:04","0:58:58","0:57:53","0:56:47"],"Half Marathon":["2:09:38","2:08:28","2:07:19","2:06:09","2:05:00","2:03:50","2:02:41","2:01:32","2:00:22","1:59:13","1:58:03","1:56:54","1:55:44","1:54:35","1:53:25","1:52:16","1:51:07","1:49:57","1:48:48","1:47:38","1:46:29","1:45:19","1:44:10","1:43:00","1:41:51","1:40:42","1:39:32","1:38:23","1:37:13","1:36:04","1:34:54","1:33:45","1:32:35","1:31:26","1:30:17","1:29:07","1:27:58","1:26:48","1:25:39","1:24:29","1:23:20","1:22:10","1:21:01","1:19:52","1:18:42","1:17:33","1:16:23","1:15:14","1:14:04","1:12:55","1:11:46","1:10:36","1:09:27","1:08:17","1:07:08","1:05:58","1:04:49","1:03:39","1:02:30","1:01:21","1:00:11"],"25k":["2:34:36","2:33:13","2:31:51","2:30:28","2:29:05","2:27:42","2:26:19","2:24:56","2:23:34","2:22:11","2:20:48","2:19:25","2:18:02","2:16:40","2:15:17","2:13:54","2:12:31","2:11:08","2:09:45","2:08:23","2:07:00","2:05:37","2:04:14","2:02:51","2:01:28","2:00:06","1:58:43","1:57:20","1:55:57","1:54:34","1:53:12","1:51:49","1:50:26","1:49:03","1:47:40","1:46:17","1:44:55","1:43:32","1:42:09","1:40:46","1:39:23","1:38:00","1:36:38","1:35:15","1:33:52","1:32:29","1:31:06","1:29:44","1:28:21","1:26:58","1:25:35","1:24:12","1:22:49","1:21:27","1:20:04","1:18:41","1:17:18","1:15:55","1:14:32","1:13:10","1:11:47"],"30k":["3:07:35","3:05:55","3:04:14","3:02:34","3:00:53","2:59:13","2:57:32","2:55:52","2:54:11","2:52:31","2:50:50","2:49:10","2:47:29","2:45:49","2:44:08","2:42:28","2:40:47","2:39:07","2:37:26","2:35:46","2:34:05","2:32:25","2:30:44","2:29:04","2:27:23","2:25:43","2:24:02","2:22:22","2:20:41","2:19:01","2:17:20","2:15:40","2:13:59","2:12:19","2:10:39","2:08:58","2:07:18","2:05:37","2:03:57","2:02:16","2:00:36","1:58:55","1:57:15","1:55:34","1:53:54","1:52:13","1:50:33","1:48:52","1:47:12","1:45:31","1:43:51","1:42:10","1:40:30","1:38:49","1:37:09","1:35:28","1:33:48","1:32:07","1:30:27","1:28:46","1:27:06"],"Marathon":["4:30:21","4:27:56","4:25:31","4:23:06","4:20:42","4:18:17","4:15:52","4:13:27","4:11:02","4:08:37","4:06:13","4:03:48","4:01:23","3:58:58","3:56:33","3:54:08","3:51:44","3:49:19","3:46:54","3:44:29","3:42:04","3:39:39","3:37:15","3:34:50","3:32:25","3:30:00","3:27:35","3:25:10","3:22:46","3:20:21","3:17:56","3:15:31","3:13:06","3:10:42","3:08:17","3:05:52","3:03:27","3:01:02","2:58:37","2:56:13","2:53:48","2:51:23","2:48:58","2:46:33","2:44:08","2:41:44","2:39:19","2:36:54","2:34:29","2:32:04","2:29:39","2:27:15","2:24:50","2:22:25","2:20:00","2:17:35","2:15:10","2:12:46","2:10:21","2:07:56","2:05:31"]}\n';
 var author$project$MPRData$speedRace = '\n{"5k":["0:28:00","0:27:45","0:27:30","0:27:15","0:27:00","0:26:45","0:26:30","0:26:15","0:26:00","0:25:45","0:25:30","0:25:15","0:25:00","0:24:45","0:24:30","0:24:15","0:24:00","0:23:45","0:23:30","0:23:15","0:23:00","0:22:45","0:22:30","0:22:15","0:22:00","0:21:45","0:21:30","0:21:15","0:21:00","0:20:45","0:20:30","0:20:15","0:20:00","0:19:45","0:19:30","0:19:15","0:19:00","0:18:45","0:18:30","0:18:15","0:18:00","0:17:45","0:17:30","0:17:15","0:17:00","0:16:45","0:16:30","0:16:15","0:16:00","0:15:45","0:15:30","0:15:15","0:15:00","0:14:45","0:14:30","0:14:15","0:14:00","0:13:45","0:13:30","0:13:15","0:13:00"],"8k":["0:46:09","0:45:44","0:45:19","0:44:54","0:44:30","0:44:05","0:43:40","0:43:16","0:42:51","0:42:26","0:42:01","0:41:37","0:41:12","0:40:47","0:40:23","0:39:58","0:39:33","0:39:08","0:38:44","0:38:19","0:37:54","0:37:30","0:37:05","0:36:40","0:36:15","0:35:51","0:35:26","0:35:01","0:34:36","0:34:12","0:33:47","0:33:22","0:32:58","0:32:33","0:32:08","0:31:43","0:31:19","0:30:54","0:30:29","0:30:05","0:29:40","0:29:15","0:28:50","0:28:26","0:28:01","0:27:36","0:27:12","0:26:47","0:26:22","0:25:57","0:25:33","0:25:08","0:24:43","0:24:18","0:23:54","0:23:29","0:23:04","0:22:40","0:22:15","0:21:50","0:21:25"],"5 mile":["0:46:25","0:46:00","0:45:35","0:45:10","0:44:45","0:44:21","0:43:56","0:43:31","0:43:06","0:42:41","0:42:16","0:41:51","0:41:27","0:41:02","0:40:37","0:40:12","0:39:47","0:39:22","0:38:57","0:38:32","0:38:08","0:37:43","0:37:18","0:36:53","0:36:28","0:36:03","0:35:38","0:35:14","0:34:49","0:34:24","0:33:59","0:33:34","0:33:09","0:32:44","0:32:19","0:31:55","0:31:30","0:31:05","0:30:40","0:30:15","0:29:50","0:29:25","0:29:01","0:28:36","0:28:11","0:27:46","0:27:21","0:26:56","0:26:31","0:26:07","0:25:42","0:25:17","0:24:52","0:24:27","0:24:02","0:23:37","0:23:12","0:22:48","0:22:23","0:21:58","0:21:33"],"10k":["0:58:48","0:58:16","0:57:45","0:57:13","0:56:42","0:56:11","0:55:39","0:55:08","0:54:36","0:54:05","0:53:33","0:53:02","0:52:30","0:51:59","0:51:27","0:50:56","0:50:24","0:49:53","0:49:21","0:48:50","0:48:18","0:47:47","0:47:15","0:46:44","0:46:12","0:45:41","0:45:09","0:44:38","0:44:06","0:43:35","0:43:03","0:42:31","0:42:00","0:41:28","0:40:57","0:40:26","0:39:54","0:39:22","0:38:51","0:38:19","0:37:48","0:37:16","0:36:45","0:36:14","0:35:42","0:35:11","0:34:39","0:34:07","0:33:36","0:33:05","0:32:33","0:32:01","0:31:30","0:30:59","0:30:27","0:29:55","0:29:24","0:28:52","0:28:21","0:27:50","0:27:18"],"15k":["1:30:24","1:29:36","1:28:47","1:27:59","1:27:11","1:26:22","1:25:34","1:24:45","1:23:57","1:23:08","1:22:20","1:21:32","1:20:43","1:19:55","1:19:06","1:18:18","1:17:29","1:16:41","1:15:53","1:15:04","1:14:16","1:13:27","1:12:39","1:11:50","1:11:02","1:10:14","1:09:25","1:08:37","1:07:48","1:07:00","1:06:11","1:05:23","1:04:34","1:03:46","1:02:58","1:02:09","1:01:21","1:00:32","0:59:44","0:58:55","0:58:07","0:57:19","0:56:30","0:55:42","0:54:53","0:54:05","0:53:16","0:52:28","0:51:40","0:50:51","0:50:03","0:49:14","0:48:26","0:47:37","0:46:49","0:46:01","0:45:12","0:44:24","0:43:35","0:42:47","0:41:58"],"10 mile":["1:37:28","1:36:36","1:35:44","1:34:52","1:33:59","1:33:07","1:32:15","1:31:23","1:30:31","1:29:38","1:28:46","1:27:54","1:27:02","1:26:09","1:25:17","1:24:25","1:23:33","1:22:41","1:21:48","1:20:56","1:20:04","1:19:12","1:18:20","1:17:27","1:16:35","1:15:43","1:14:51","1:13:58","1:13:06","1:12:14","1:11:22","1:10:30","1:09:37","1:08:45","1:07:53","1:07:01","1:06:08","1:05:16","1:04:24","1:03:32","1:02:40","1:01:47","1:00:55","1:00:03","0:59:11","0:58:19","0:57:26","0:56:34","0:55:42","0:54:50","0:53:57","0:53:05","0:52:13","0:51:21","0:50:29","0:49:36","0:48:44","0:47:52","0:47:00","0:46:08","0:45:15"],"20k":["2:03:29","2:02:23","2:01:16","2:00:10","1:59:04","1:57:58","1:56:52","1:55:46","1:54:40","1:53:33","1:52:27","1:51:21","1:50:15","1:49:09","1:48:03","1:46:57","1:45:50","1:44:44","1:43:38","1:42:32","1:41:26","1:40:20","1:39:14","1:38:07","1:37:01","1:35:55","1:34:49","1:33:43","1:32:37","1:31:30","1:30:24","1:29:18","1:28:12","1:27:06","1:26:00","1:24:54","1:23:47","1:22:41","1:21:35","1:20:29","1:19:23","1:18:17","1:17:11","1:16:04","1:14:58","1:13:52","1:12:46","1:11:40","1:10:34","1:09:27","1:08:21","1:07:15","1:06:09","1:05:03","1:03:57","1:02:51","1:01:44","1:00:38","0:59:32","0:58:26","0:57:20"],"Half Marathon":["2:10:56","2:09:46","2:08:36","2:07:26","2:06:16","2:05:06","2:03:56","2:02:45","2:01:35","2:00:25","1:59:15","1:58:05","1:56:55","1:55:44","1:54:34","1:53:24","1:52:14","1:51:04","1:49:54","1:48:44","1:47:33","1:46:23","1:45:13","1:44:03","1:42:53","1:41:43","1:40:33","1:39:22","1:38:12","1:37:02","1:35:52","1:34:42","1:33:32","1:32:22","1:31:11","1:30:01","1:28:51","1:27:41","1:26:31","1:25:21","1:24:11","1:23:00","1:21:50","1:20:40","1:19:30","1:18:20","1:17:10","1:16:00","1:14:49","1:13:39","1:12:29","1:11:19","1:10:09","1:08:59","1:07:48","1:06:38","1:05:28","1:04:18","1:03:08","1:01:58","1:00:48"],"25k":["2:36:17","2:34:53","2:33:29","2:32:06","2:30:42","2:29:18","2:27:54","2:26:31","2:25:07","2:23:43","2:22:20","2:20:56","2:19:32","2:18:08","2:16:45","2:15:21","2:13:57","2:12:34","2:11:10","2:09:46","2:08:22","2:06:59","2:05:35","2:04:11","2:02:47","2:01:24","2:00:00","1:58:36","1:57:13","1:55:49","1:54:25","1:53:01","1:51:38","1:50:14","1:48:50","1:47:27","1:46:03","1:44:39","1:43:15","1:41:52","1:40:28","1:39:04","1:37:40","1:36:17","1:34:53","1:33:29","1:32:06","1:30:42","1:29:18","1:27:54","1:26:31","1:25:07","1:23:43","1:22:20","1:20:56","1:19:32","1:18:08","1:16:45","1:15:21","1:13:57","1:12:33"],"30k":["3:09:51","3:08:09","3:06:28","3:04:46","3:03:04","3:01:23","2:59:41","2:57:59","2:56:17","2:54:36","2:52:54","2:51:12","2:49:31","2:47:49","2:46:07","2:44:25","2:42:44","2:41:02","2:39:20","2:37:39","2:35:57","2:34:15","2:32:34","2:30:52","2:29:10","2:27:28","2:25:47","2:24:05","2:22:23","2:20:42","2:19:00","2:17:18","2:15:36","2:13:55","2:12:13","2:10:31","2:08:50","2:07:08","2:05:26","2:03:45","2:02:03","2:00:21","1:58:39","1:56:58","1:55:16","1:53:34","1:51:53","1:50:11","1:48:29","1:46:47","1:45:06","1:43:24","1:41:42","1:40:01","1:38:19","1:36:37","1:34:56","1:33:14","1:31:32","1:29:50","1:28:09"],"Marathon":["4:34:19","4:31:52","4:29:25","4:26:58","4:24:31","4:22:05","4:19:38","4:17:11","4:14:44","4:12:17","4:09:50","4:07:23","4:04:56","4:02:29","4:00:02","3:57:35","3:55:08","3:52:41","3:50:14","3:47:47","3:45:20","3:42:53","3:40:26","3:37:59","3:35:32","3:33:05","3:30:38","3:28:11","3:25:44","3:23:18","3:20:51","3:18:24","3:15:57","3:13:30","3:11:03","3:08:36","3:06:09","3:03:42","3:01:15","2:58:48","2:56:21","2:53:54","2:51:27","2:49:00","2:46:33","2:44:06","2:41:39","2:39:12","2:36:45","2:34:18","2:31:51","2:29:24","2:26:57","2:24:31","2:22:04","2:19:37","2:17:10","2:14:43","2:12:16","2:09:49","2:07:22"]}\n';
-var elm$core$Dict$RBEmpty_elm_builtin = {$: 'RBEmpty_elm_builtin'};
+var elm$core$Dict$RBEmpty_elm_builtin = {$: -2};
 var elm$core$Dict$empty = elm$core$Dict$RBEmpty_elm_builtin;
 var elm$core$Result$withDefault = F2(
 	function (def, result) {
-		if (result.$ === 'Ok') {
+		if (!result.$) {
 			var a = result.a;
 			return a;
 		} else {
@@ -4579,7 +4579,7 @@ var elm$core$Result$withDefault = F2(
 var elm$core$Array$branchFactor = 32;
 var elm$core$Array$Array_elm_builtin = F4(
 	function (a, b, c, d) {
-		return {$: 'Array_elm_builtin', a: a, b: b, c: c, d: d};
+		return {$: 0, a: a, b: b, c: c, d: d};
 	});
 var elm$core$Basics$ceiling = _Basics_ceiling;
 var elm$core$Basics$fdiv = _Basics_fdiv;
@@ -4593,10 +4593,10 @@ var elm$core$Array$shiftStep = elm$core$Basics$ceiling(
 var elm$core$Elm$JsArray$empty = _JsArray_empty;
 var elm$core$Array$empty = A4(elm$core$Array$Array_elm_builtin, 0, elm$core$Array$shiftStep, elm$core$Elm$JsArray$empty, elm$core$Elm$JsArray$empty);
 var elm$core$Array$Leaf = function (a) {
-	return {$: 'Leaf', a: a};
+	return {$: 1, a: a};
 };
 var elm$core$Array$SubTree = function (a) {
-	return {$: 'SubTree', a: a};
+	return {$: 0, a: a};
 };
 var elm$core$Elm$JsArray$initializeFromList = _JsArray_initializeFromList;
 var elm$core$Array$compressNodes = F2(
@@ -4656,28 +4656,28 @@ var elm$core$Basics$sub = _Basics_sub;
 var elm$core$Elm$JsArray$length = _JsArray_length;
 var elm$core$Array$builderToArray = F2(
 	function (reverseNodeList, builder) {
-		if (!builder.nodeListSize) {
+		if (!builder.a) {
 			return A4(
 				elm$core$Array$Array_elm_builtin,
-				elm$core$Elm$JsArray$length(builder.tail),
+				elm$core$Elm$JsArray$length(builder.c),
 				elm$core$Array$shiftStep,
 				elm$core$Elm$JsArray$empty,
-				builder.tail);
+				builder.c);
 		} else {
-			var treeLen = builder.nodeListSize * elm$core$Array$branchFactor;
+			var treeLen = builder.a * elm$core$Array$branchFactor;
 			var depth = elm$core$Basics$floor(
 				A2(elm$core$Basics$logBase, elm$core$Array$branchFactor, treeLen - 1));
-			var correctNodeList = reverseNodeList ? elm$core$List$reverse(builder.nodeList) : builder.nodeList;
-			var tree = A2(elm$core$Array$treeFromBuilder, correctNodeList, builder.nodeListSize);
+			var correctNodeList = reverseNodeList ? elm$core$List$reverse(builder.d) : builder.d;
+			var tree = A2(elm$core$Array$treeFromBuilder, correctNodeList, builder.a);
 			return A4(
 				elm$core$Array$Array_elm_builtin,
-				elm$core$Elm$JsArray$length(builder.tail) + treeLen,
+				elm$core$Elm$JsArray$length(builder.c) + treeLen,
 				A2(elm$core$Basics$max, 5, depth * elm$core$Array$shiftStep),
 				tree,
-				builder.tail);
+				builder.c);
 		}
 	});
-var elm$core$Basics$False = {$: 'False'};
+var elm$core$Basics$False = 1;
 var elm$core$Basics$idiv = _Basics_idiv;
 var elm$core$Basics$lt = _Utils_lt;
 var elm$core$Elm$JsArray$initialize = _JsArray_initialize;
@@ -4689,7 +4689,7 @@ var elm$core$Array$initializeHelp = F5(
 				return A2(
 					elm$core$Array$builderToArray,
 					false,
-					{nodeList: nodeList, nodeListSize: (len / elm$core$Array$branchFactor) | 0, tail: tail});
+					{d: nodeList, a: (len / elm$core$Array$branchFactor) | 0, c: tail});
 			} else {
 				var leaf = elm$core$Array$Leaf(
 					A3(elm$core$Elm$JsArray$initialize, elm$core$Array$branchFactor, fromIndex, fn));
@@ -4721,11 +4721,11 @@ var elm$core$Array$initialize = F2(
 		}
 	});
 var elm$core$Result$Ok = function (a) {
-	return {$: 'Ok', a: a};
+	return {$: 0, a: a};
 };
-var elm$core$Basics$True = {$: 'True'};
+var elm$core$Basics$True = 0;
 var elm$core$Result$isOk = function (result) {
-	if (result.$ === 'Ok') {
+	if (!result.$) {
 		return true;
 	} else {
 		return false;
@@ -4733,18 +4733,18 @@ var elm$core$Result$isOk = function (result) {
 };
 var elm$json$Json$Decode$Failure = F2(
 	function (a, b) {
-		return {$: 'Failure', a: a, b: b};
+		return {$: 3, a: a, b: b};
 	});
 var elm$json$Json$Decode$Field = F2(
 	function (a, b) {
-		return {$: 'Field', a: a, b: b};
+		return {$: 0, a: a, b: b};
 	});
 var elm$json$Json$Decode$Index = F2(
 	function (a, b) {
-		return {$: 'Index', a: a, b: b};
+		return {$: 1, a: a, b: b};
 	});
 var elm$json$Json$Decode$OneOf = function (a) {
-	return {$: 'OneOf', a: a};
+	return {$: 2, a: a};
 };
 var elm$core$Basics$and = _Basics_and;
 var elm$core$Basics$append = _Utils_append;
@@ -4841,12 +4841,12 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 		errorToStringHelp:
 		while (true) {
 			switch (error.$) {
-				case 'Field':
+				case 0:
 					var f = error.a;
 					var err = error.b;
 					var isSimple = function () {
 						var _n1 = elm$core$String$uncons(f);
-						if (_n1.$ === 'Nothing') {
+						if (_n1.$ === 1) {
 							return false;
 						} else {
 							var _n2 = _n1.a;
@@ -4861,7 +4861,7 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'Index':
+				case 1:
 					var i = error.a;
 					var err = error.b;
 					var indexName = '[' + (elm$core$String$fromInt(i) + ']');
@@ -4870,7 +4870,7 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 					error = $temp$error;
 					context = $temp$context;
 					continue errorToStringHelp;
-				case 'OneOf':
+				case 2:
 					var errors = error.a;
 					if (!errors.b) {
 						return 'Ran into a Json.Decode.oneOf with no possibilities' + function () {
@@ -4933,22 +4933,22 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 	});
 var elm$json$Json$Decode$array = _Json_decodeArray;
 var elm$json$Json$Decode$decodeString = _Json_runOnString;
-var elm$core$Dict$Black = {$: 'Black'};
+var elm$core$Dict$Black = 1;
 var elm$core$Dict$RBNode_elm_builtin = F5(
 	function (a, b, c, d, e) {
-		return {$: 'RBNode_elm_builtin', a: a, b: b, c: c, d: d, e: e};
+		return {$: -1, a: a, b: b, c: c, d: d, e: e};
 	});
 var elm$core$Basics$compare = _Utils_compare;
-var elm$core$Dict$Red = {$: 'Red'};
+var elm$core$Dict$Red = 0;
 var elm$core$Dict$balance = F5(
 	function (color, key, value, left, right) {
-		if ((right.$ === 'RBNode_elm_builtin') && (right.a.$ === 'Red')) {
+		if ((right.$ === -1) && (!right.a)) {
 			var _n1 = right.a;
 			var rK = right.b;
 			var rV = right.c;
 			var rLeft = right.d;
 			var rRight = right.e;
-			if ((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) {
+			if ((left.$ === -1) && (!left.a)) {
 				var _n3 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -4956,22 +4956,22 @@ var elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					elm$core$Dict$RBNode_elm_builtin,
-					elm$core$Dict$Red,
+					0,
 					key,
 					value,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, lK, lV, lLeft, lRight),
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, rK, rV, rLeft, rRight));
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, lK, lV, lLeft, lRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, rK, rV, rLeft, rRight));
 			} else {
 				return A5(
 					elm$core$Dict$RBNode_elm_builtin,
 					color,
 					rK,
 					rV,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, left, rLeft),
+					A5(elm$core$Dict$RBNode_elm_builtin, 0, key, value, left, rLeft),
 					rRight);
 			}
 		} else {
-			if ((((left.$ === 'RBNode_elm_builtin') && (left.a.$ === 'Red')) && (left.d.$ === 'RBNode_elm_builtin')) && (left.d.a.$ === 'Red')) {
+			if ((((left.$ === -1) && (!left.a)) && (left.d.$ === -1)) && (!left.d.a)) {
 				var _n5 = left.a;
 				var lK = left.b;
 				var lV = left.c;
@@ -4984,11 +4984,11 @@ var elm$core$Dict$balance = F5(
 				var lRight = left.e;
 				return A5(
 					elm$core$Dict$RBNode_elm_builtin,
-					elm$core$Dict$Red,
+					0,
 					lK,
 					lV,
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, llK, llV, llLeft, llRight),
-					A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, key, value, lRight, right));
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, llK, llV, llLeft, llRight),
+					A5(elm$core$Dict$RBNode_elm_builtin, 1, key, value, lRight, right));
 			} else {
 				return A5(elm$core$Dict$RBNode_elm_builtin, color, key, value, left, right);
 			}
@@ -4996,8 +4996,8 @@ var elm$core$Dict$balance = F5(
 	});
 var elm$core$Dict$insertHelp = F3(
 	function (key, value, dict) {
-		if (dict.$ === 'RBEmpty_elm_builtin') {
-			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Red, key, value, elm$core$Dict$RBEmpty_elm_builtin, elm$core$Dict$RBEmpty_elm_builtin);
+		if (dict.$ === -2) {
+			return A5(elm$core$Dict$RBNode_elm_builtin, 0, key, value, elm$core$Dict$RBEmpty_elm_builtin, elm$core$Dict$RBEmpty_elm_builtin);
 		} else {
 			var nColor = dict.a;
 			var nKey = dict.b;
@@ -5005,8 +5005,8 @@ var elm$core$Dict$insertHelp = F3(
 			var nLeft = dict.d;
 			var nRight = dict.e;
 			var _n1 = A2(elm$core$Basics$compare, key, nKey);
-			switch (_n1.$) {
-				case 'LT':
+			switch (_n1) {
+				case 0:
 					return A5(
 						elm$core$Dict$balance,
 						nColor,
@@ -5014,7 +5014,7 @@ var elm$core$Dict$insertHelp = F3(
 						nValue,
 						A3(elm$core$Dict$insertHelp, key, value, nLeft),
 						nRight);
-				case 'EQ':
+				case 1:
 					return A5(elm$core$Dict$RBNode_elm_builtin, nColor, nKey, value, nLeft, nRight);
 				default:
 					return A5(
@@ -5030,13 +5030,13 @@ var elm$core$Dict$insertHelp = F3(
 var elm$core$Dict$insert = F3(
 	function (key, value, dict) {
 		var _n0 = A3(elm$core$Dict$insertHelp, key, value, dict);
-		if ((_n0.$ === 'RBNode_elm_builtin') && (_n0.a.$ === 'Red')) {
+		if ((_n0.$ === -1) && (!_n0.a)) {
 			var _n1 = _n0.a;
 			var k = _n0.b;
 			var v = _n0.c;
 			var l = _n0.d;
 			var r = _n0.e;
-			return A5(elm$core$Dict$RBNode_elm_builtin, elm$core$Dict$Black, k, v, l, r);
+			return A5(elm$core$Dict$RBNode_elm_builtin, 1, k, v, l, r);
 		} else {
 			var x = _n0;
 			return x;
@@ -5065,10 +5065,10 @@ var elm$json$Json$Decode$dict = function (decoder) {
 var elm$json$Json$Decode$string = _Json_decodeString;
 var author$project$MPRLevel$equivalentRaceTimesTable = function (runnerType) {
 	var json = function () {
-		switch (runnerType.$) {
-			case 'Neutral':
+		switch (runnerType) {
+			case 0:
 				return author$project$MPRData$neutralRace;
-			case 'Aerobic':
+			case 1:
 				return author$project$MPRData$aerobicRace;
 			default:
 				return author$project$MPRData$speedRace;
@@ -5109,7 +5109,7 @@ var elm$core$Array$map = F2(
 		var tree = _n0.c;
 		var tail = _n0.d;
 		var helper = function (node) {
-			if (node.$ === 'SubTree') {
+			if (!node.$) {
 				var subTree = node.a;
 				return elm$core$Array$SubTree(
 					A2(elm$core$Elm$JsArray$map, helper, subTree));
@@ -5130,7 +5130,7 @@ var elm$core$Dict$get = F2(
 	function (targetKey, dict) {
 		get:
 		while (true) {
-			if (dict.$ === 'RBEmpty_elm_builtin') {
+			if (dict.$ === -2) {
 				return elm$core$Maybe$Nothing;
 			} else {
 				var key = dict.b;
@@ -5138,14 +5138,14 @@ var elm$core$Dict$get = F2(
 				var left = dict.d;
 				var right = dict.e;
 				var _n1 = A2(elm$core$Basics$compare, targetKey, key);
-				switch (_n1.$) {
-					case 'LT':
+				switch (_n1) {
+					case 0:
 						var $temp$targetKey = targetKey,
 							$temp$dict = left;
 						targetKey = $temp$targetKey;
 						dict = $temp$dict;
 						continue get;
-					case 'EQ':
+					case 1:
 						return elm$core$Maybe$Just(value);
 					default:
 						var $temp$targetKey = targetKey,
@@ -5170,7 +5170,7 @@ var elm$core$List$filter = F2(
 	});
 var elm$core$Result$andThen = F2(
 	function (callback, result) {
-		if (result.$ === 'Ok') {
+		if (!result.$) {
 			var value = result.a;
 			return callback(value);
 		} else {
@@ -5180,7 +5180,7 @@ var elm$core$Result$andThen = F2(
 	});
 var elm$core$Result$fromMaybe = F2(
 	function (err, maybe) {
-		if (maybe.$ === 'Just') {
+		if (!maybe.$) {
 			var v = maybe.a;
 			return elm$core$Result$Ok(v);
 		} else {
@@ -5189,12 +5189,12 @@ var elm$core$Result$fromMaybe = F2(
 	});
 var elm$core$Result$map2 = F3(
 	function (func, ra, rb) {
-		if (ra.$ === 'Err') {
+		if (ra.$ === 1) {
 			var x = ra.a;
 			return elm$core$Result$Err(x);
 		} else {
 			var a = ra.a;
-			if (rb.$ === 'Err') {
+			if (rb.$ === 1) {
 				var x = rb.a;
 				return elm$core$Result$Err(x);
 			} else {
@@ -5244,57 +5244,83 @@ var author$project$MPRLevel$lookup = F3(
 									distance,
 									author$project$MPRLevel$equivalentRaceTimesTable(runnerType))))))));
 	});
+var elm$core$Basics$neq = _Utils_notEqual;
+var elm$core$List$any = F2(
+	function (isOkay, list) {
+		any:
+		while (true) {
+			if (!list.b) {
+				return false;
+			} else {
+				var x = list.a;
+				var xs = list.b;
+				if (isOkay(x)) {
+					return true;
+				} else {
+					var $temp$isOkay = isOkay,
+						$temp$list = xs;
+					isOkay = $temp$isOkay;
+					list = $temp$list;
+					continue any;
+				}
+			}
+		}
+	});
 var author$project$Main$updateLevel = function (model) {
-	return A3(
+	return A2(
+		elm$core$List$any,
+		function (v) {
+			return !_Utils_eq(v, elm$core$Maybe$Nothing);
+		},
+		_List_fromArray(
+			[model.A, model.B, model.F])) ? A3(
 		author$project$MPRLevel$lookup,
-		model.runnerType,
-		model.distance,
+		model.E,
+		model.x,
 		A3(
 			author$project$MPRLevel$timeToSeconds,
-			A2(elm$core$Maybe$withDefault, 0, model.hours),
-			A2(elm$core$Maybe$withDefault, 0, model.minutes),
-			A2(elm$core$Maybe$withDefault, 0, model.seconds)));
+			A2(elm$core$Maybe$withDefault, 0, model.A),
+			A2(elm$core$Maybe$withDefault, 0, model.B),
+			A2(elm$core$Maybe$withDefault, 0, model.F))) : elm$core$Result$Err('Enter a recent race time and distance');
 };
-var elm$core$Debug$log = _Debug_log;
 var author$project$Main$update = F2(
 	function (msg, model) {
 		var newModel = function () {
-			var _n0 = A2(elm$core$Debug$log, 'Message', msg);
-			switch (_n0.$) {
-				case 'RunnerType':
-					var rt = _n0.a;
+			switch (msg.$) {
+				case 0:
+					var rt = msg.a;
 					return _Utils_update(
 						model,
-						{runnerType: rt});
-				case 'Distance':
-					var dist = _n0.a;
+						{E: rt});
+				case 1:
+					var dist = msg.a;
 					return _Utils_update(
 						model,
-						{distance: dist});
-				case 'Hours':
-					var hrs = _n0.a;
+						{x: dist});
+				case 2:
+					var hrs = msg.a;
 					return _Utils_update(
 						model,
 						{
-							hours: elm$core$Maybe$Just(hrs)
+							A: elm$core$Maybe$Just(hrs)
 						});
-				case 'Minutes':
-					var mins = _n0.a;
+				case 3:
+					var mins = msg.a;
 					return _Utils_update(
 						model,
 						{
-							minutes: elm$core$Maybe$Just(mins)
+							B: elm$core$Maybe$Just(mins)
 						});
-				case 'Seconds':
-					var secs = _n0.a;
+				case 4:
+					var secs = msg.a;
 					return _Utils_update(
 						model,
 						{
-							seconds: elm$core$Maybe$Just(secs)
+							F: elm$core$Maybe$Just(secs)
 						});
 				default:
-					var dist = _n0.a;
-					var time = _n0.b;
+					var dist = msg.a;
+					var time = msg.b;
 					var _n1 = author$project$MPRLevel$timeStrToHrsMinsSecs(time);
 					if (((_n1.b && _n1.b.b) && _n1.b.b.b) && (!_n1.b.b.b.b)) {
 						var hrs = _n1.a;
@@ -5305,40 +5331,37 @@ var author$project$Main$update = F2(
 						return _Utils_update(
 							model,
 							{
-								distance: dist,
-								hours: elm$core$Maybe$Just(hrs),
-								minutes: elm$core$Maybe$Just(mins),
-								seconds: elm$core$Maybe$Just(secs)
+								x: dist,
+								A: elm$core$Maybe$Just(hrs),
+								B: elm$core$Maybe$Just(mins),
+								F: elm$core$Maybe$Just(secs)
 							});
 					} else {
 						return _Utils_update(
 							model,
-							{distance: dist});
+							{x: dist});
 					}
 			}
 		}();
-		return A2(
-			elm$core$Debug$log,
-			'Model',
-			_Utils_update(
-				newModel,
-				{
-					level: author$project$Main$updateLevel(newModel)
-				}));
+		return _Utils_update(
+			newModel,
+			{
+				L: author$project$Main$updateLevel(newModel)
+			});
 	});
-var author$project$MPRLevel$Aerobic = {$: 'Aerobic'};
-var author$project$MPRLevel$Speed = {$: 'Speed'};
+var author$project$MPRLevel$Aerobic = 1;
+var author$project$MPRLevel$Speed = 2;
 var author$project$Main$Hours = function (a) {
-	return {$: 'Hours', a: a};
+	return {$: 2, a: a};
 };
 var author$project$Main$Minutes = function (a) {
-	return {$: 'Minutes', a: a};
+	return {$: 3, a: a};
 };
 var author$project$Main$RunnerType = function (a) {
-	return {$: 'RunnerType', a: a};
+	return {$: 0, a: a};
 };
 var author$project$Main$Seconds = function (a) {
-	return {$: 'Seconds', a: a};
+	return {$: 4, a: a};
 };
 var elm$core$Basics$identity = function (x) {
 	return x;
@@ -5347,11 +5370,11 @@ var elm$json$Json$Decode$map2 = _Json_map2;
 var elm$json$Json$Decode$succeed = _Json_succeed;
 var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
-		case 'Normal':
+		case 0:
 			return 0;
-		case 'MayStopPropagation':
+		case 1:
 			return 1;
-		case 'MayPreventDefault':
+		case 2:
 			return 2;
 		default:
 			return 3;
@@ -5372,7 +5395,7 @@ var elm$html$Html$Attributes$stringProperty = F2(
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
 var elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
+	return {$: 0, a: a};
 };
 var elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
 var elm$html$Html$Events$on = F2(
@@ -5430,7 +5453,7 @@ var elm$html$Html$Events$alwaysStop = function (x) {
 	return _Utils_Tuple2(x, true);
 };
 var elm$virtual_dom$VirtualDom$MayStopPropagation = function (a) {
-	return {$: 'MayStopPropagation', a: a};
+	return {$: 1, a: a};
 };
 var elm$html$Html$Events$stopPropagationOn = F2(
 	function (event, decoder) {
@@ -5461,7 +5484,7 @@ var elm$html$Html$Events$onInput = function (tagger) {
 var author$project$Main$timeInput = F3(
 	function (labelText, msg, modelValue) {
 		var inputText = function () {
-			if (modelValue.$ === 'Just') {
+			if (!modelValue.$) {
 				var val = modelValue.a;
 				return elm$core$String$fromInt(val);
 			} else {
@@ -5514,7 +5537,7 @@ var elm$core$Array$getHelp = F3(
 		while (true) {
 			var pos = elm$core$Array$bitMask & (index >>> shift);
 			var _n0 = A2(elm$core$Elm$JsArray$unsafeGet, pos, tree);
-			if (_n0.$ === 'SubTree') {
+			if (!_n0.$) {
 				var subTree = _n0.a;
 				var $temp$shift = shift - elm$core$Array$shiftStep,
 					$temp$index = index,
@@ -5608,7 +5631,7 @@ var author$project$MPRLevel$stripTimeStr = function (str) {
 		var sec = _n2.a;
 		return elm$core$String$fromInt(min) + (':' + function () {
 			var _n3 = A2(elm$core$Basics$compare, sec, 10);
-			if (_n3.$ === 'LT') {
+			if (!_n3) {
 				return '0' + elm$core$String$fromInt(sec);
 			} else {
 				return elm$core$String$fromInt(sec);
@@ -5620,7 +5643,7 @@ var author$project$MPRLevel$stripTimeStr = function (str) {
 };
 var author$project$Main$Race = F2(
 	function (a, b) {
-		return {$: 'Race', a: a, b: b};
+		return {$: 5, a: a, b: b};
 	});
 var author$project$Main$distanceListItem = F3(
 	function (distance, modelDistance, timeStr) {
@@ -5683,7 +5706,7 @@ var author$project$Main$distanceListItem = F3(
 var author$project$Main$viewEquivalentRaceTimes = F2(
 	function (modelDistance, level) {
 		var timesList = A2(elm$core$Result$andThen, author$project$MPRLevel$equivalentRaceTimes, level);
-		if (timesList.$ === 'Ok') {
+		if (!timesList.$) {
 			var list = timesList.a;
 			return A2(
 				elm$html$Html$div,
@@ -5720,7 +5743,7 @@ var author$project$Main$viewEquivalentRaceTimes = F2(
 		}
 	});
 var author$project$Main$viewLevel = function (level) {
-	if (level.$ === 'Ok') {
+	if (!level.$) {
 		var _n1 = level.a;
 		var rt = _n1.a;
 		var number = _n1.b;
@@ -5768,10 +5791,10 @@ var author$project$MPRLevel$toTuple = function (l) {
 var elm$json$Json$Decode$list = _Json_decodeList;
 var author$project$MPRLevel$trainingPacesTable = function (runnerType) {
 	var json = function () {
-		switch (runnerType.$) {
-			case 'Neutral':
+		switch (runnerType) {
+			case 0:
 				return author$project$MPRData$neutralTraining;
-			case 'Aerobic':
+			case 1:
 				return author$project$MPRData$aerobicTraining;
 			default:
 				return author$project$MPRData$speedTraining;
@@ -5811,7 +5834,7 @@ var author$project$MPRLevel$trainingPaces = function (_n0) {
 		elm$core$Array$get,
 		level - 1,
 		author$project$MPRLevel$trainingPacesTable(runnerType));
-	if (res.$ === 'Just') {
+	if (!res.$) {
 		var arr = res.a;
 		return elm$core$Result$Ok(
 			A3(
@@ -5829,7 +5852,7 @@ var author$project$MPRLevel$trainingPaces = function (_n0) {
 var author$project$Main$trainingPaceListItem = F2(
 	function (paceName, paces) {
 		var paceDescription = function () {
-			if (paces.$ === 'Just') {
+			if (!paces.$) {
 				var _n1 = paces.a;
 				var minPace = _n1.a;
 				var maxPace = _n1.b;
@@ -5888,7 +5911,7 @@ var author$project$Main$trainingPaceListItem = F2(
 	});
 var author$project$Main$viewTrainingPaces = function (level) {
 	var pacesList = A2(elm$core$Result$andThen, author$project$MPRLevel$trainingPaces, level);
-	if (pacesList.$ === 'Ok') {
+	if (!pacesList.$) {
 		var list = pacesList.a;
 		return A2(
 			elm$html$Html$div,
@@ -6004,7 +6027,7 @@ var author$project$Main$view = function (model) {
 						elm$html$Html$div,
 						_List_fromArray(
 							[
-								elm$html$Html$Attributes$class('ui stackable three column very relaxed grid')
+								elm$html$Html$Attributes$class('ui stackable three column relaxed grid')
 							]),
 						_List_fromArray(
 							[
@@ -6044,9 +6067,9 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												A5(author$project$Main$menuItem, author$project$Main$RunnerType, author$project$MPRLevel$Neutral, model.runnerType, 'Neutral Runner', 'You fair roughly equally as well over most races distances from 5k to marathon. If you are not sure what type of runner you are use this category.'),
-												A5(author$project$Main$menuItem, author$project$Main$RunnerType, author$project$MPRLevel$Aerobic, model.runnerType, 'Aerobic Monster', 'You out perform your peers over the longer races but struggle in the shorter distances. Represents 10-15% of all runners.'),
-												A5(author$project$Main$menuItem, author$project$Main$RunnerType, author$project$MPRLevel$Speed, model.runnerType, 'Speed Demon', 'You out perform your peers in the short distances but struggle in the longer races. Represents 10-15% of all runners.')
+												A5(author$project$Main$menuItem, author$project$Main$RunnerType, 0, model.E, 'Neutral Runner', 'You fair roughly equally as well over most races distances from 5k to marathon. If you are not sure what type of runner you are use this category.'),
+												A5(author$project$Main$menuItem, author$project$Main$RunnerType, 1, model.E, 'Aerobic Monster', 'You out perform your peers over the longer races but struggle in the shorter distances. Represents 10-15% of all runners.'),
+												A5(author$project$Main$menuItem, author$project$Main$RunnerType, 2, model.E, 'Speed Demon', 'You out perform your peers in the short distances but struggle in the longer races. Represents 10-15% of all runners.')
 											]))
 									])),
 								A2(
@@ -6085,11 +6108,11 @@ var author$project$Main$view = function (model) {
 											]),
 										_List_fromArray(
 											[
-												A3(author$project$Main$timeInput, 'Hours', author$project$Main$Hours, model.hours),
-												A3(author$project$Main$timeInput, 'Minutes', author$project$Main$Minutes, model.minutes),
-												A3(author$project$Main$timeInput, 'Seconds', author$project$Main$Seconds, model.seconds)
+												A3(author$project$Main$timeInput, 'Hours', author$project$Main$Hours, model.A),
+												A3(author$project$Main$timeInput, 'Minutes', author$project$Main$Minutes, model.B),
+												A3(author$project$Main$timeInput, 'Seconds', author$project$Main$Seconds, model.F)
 											])),
-										A2(author$project$Main$viewEquivalentRaceTimes, model.distance, model.level)
+										A2(author$project$Main$viewEquivalentRaceTimes, model.x, model.L)
 									])),
 								A2(
 								elm$html$Html$div,
@@ -6124,9 +6147,9 @@ var author$project$Main$view = function (model) {
 										_List_Nil,
 										_List_fromArray(
 											[
-												author$project$Main$viewLevel(model.level)
+												author$project$Main$viewLevel(model.L)
 											])),
-										author$project$Main$viewTrainingPaces(model.level)
+										author$project$Main$viewTrainingPaces(model.L)
 									]))
 							]))
 					]))
@@ -6137,28 +6160,24 @@ var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var elm$core$Platform$Sub$batch = _Platform_batch;
 var elm$core$Platform$Sub$none = elm$core$Platform$Sub$batch(_List_Nil);
 var elm$browser$Browser$External = function (a) {
-	return {$: 'External', a: a};
+	return {$: 1, a: a};
 };
 var elm$browser$Browser$Internal = function (a) {
-	return {$: 'Internal', a: a};
+	return {$: 0, a: a};
 };
-var elm$browser$Browser$Dom$NotFound = function (a) {
-	return {$: 'NotFound', a: a};
-};
+var elm$browser$Browser$Dom$NotFound = elm$core$Basics$identity;
 var elm$core$Basics$never = function (_n0) {
 	never:
 	while (true) {
-		var nvr = _n0.a;
+		var nvr = _n0;
 		var $temp$_n0 = nvr;
 		_n0 = $temp$_n0;
 		continue never;
 	}
 };
-var elm$core$Task$Perform = function (a) {
-	return {$: 'Perform', a: a};
-};
+var elm$core$Task$Perform = elm$core$Basics$identity;
 var elm$core$Task$succeed = _Scheduler_succeed;
-var elm$core$Task$init = elm$core$Task$succeed(_Utils_Tuple0);
+var elm$core$Task$init = elm$core$Task$succeed(0);
 var elm$core$Task$andThen = _Scheduler_andThen;
 var elm$core$Task$map = F2(
 	function (func, taskA) {
@@ -6195,7 +6214,7 @@ var elm$core$Task$sequence = function (tasks) {
 var elm$core$Platform$sendToApp = _Platform_sendToApp;
 var elm$core$Task$spawnCmd = F2(
 	function (router, _n0) {
-		var task = _n0.a;
+		var task = _n0;
 		return _Scheduler_spawn(
 			A2(
 				elm$core$Task$andThen,
@@ -6207,7 +6226,7 @@ var elm$core$Task$onEffects = F3(
 		return A2(
 			elm$core$Task$map,
 			function (_n0) {
-				return _Utils_Tuple0;
+				return 0;
 			},
 			elm$core$Task$sequence(
 				A2(
@@ -6217,21 +6236,19 @@ var elm$core$Task$onEffects = F3(
 	});
 var elm$core$Task$onSelfMsg = F3(
 	function (_n0, _n1, _n2) {
-		return elm$core$Task$succeed(_Utils_Tuple0);
+		return elm$core$Task$succeed(0);
 	});
 var elm$core$Task$cmdMap = F2(
 	function (tagger, _n0) {
-		var task = _n0.a;
-		return elm$core$Task$Perform(
-			A2(elm$core$Task$map, tagger, task));
+		var task = _n0;
+		return A2(elm$core$Task$map, tagger, task);
 	});
 _Platform_effectManagers['Task'] = _Platform_createManager(elm$core$Task$init, elm$core$Task$onEffects, elm$core$Task$onSelfMsg, elm$core$Task$cmdMap);
 var elm$core$Task$command = _Platform_leaf('Task');
 var elm$core$Task$perform = F2(
 	function (toMessage, task) {
 		return elm$core$Task$command(
-			elm$core$Task$Perform(
-				A2(elm$core$Task$map, toMessage, task)));
+			A2(elm$core$Task$map, toMessage, task));
 	});
 var elm$core$String$length = _String_length;
 var elm$core$String$slice = _String_slice;
@@ -6244,8 +6261,8 @@ var elm$core$String$dropLeft = F2(
 			string);
 	});
 var elm$core$String$startsWith = _String_startsWith;
-var elm$url$Url$Http = {$: 'Http'};
-var elm$url$Url$Https = {$: 'Https'};
+var elm$url$Url$Http = 0;
+var elm$url$Url$Https = 1;
 var elm$core$String$indexes = _String_indexes;
 var elm$core$String$isEmpty = function (string) {
 	return string === '';
@@ -6257,7 +6274,7 @@ var elm$core$String$left = F2(
 var elm$core$String$contains = _String_contains;
 var elm$url$Url$Url = F6(
 	function (protocol, host, port_, path, query, fragment) {
-		return {fragment: fragment, host: host, path: path, port_: port_, protocol: protocol, query: query};
+		return {ai: fragment, ak: host, ap: path, ar: port_, au: protocol, av: query};
 	});
 var elm$url$Url$chompBeforePath = F5(
 	function (protocol, path, params, frag, str) {
@@ -6273,7 +6290,7 @@ var elm$url$Url$chompBeforePath = F5(
 					var i = _n0.a;
 					var _n1 = elm$core$String$toInt(
 						A2(elm$core$String$dropLeft, i + 1, str));
-					if (_n1.$ === 'Nothing') {
+					if (_n1.$ === 1) {
 						return elm$core$Maybe$Nothing;
 					} else {
 						var port_ = _n1;
@@ -6355,34 +6372,34 @@ var elm$url$Url$chompAfterProtocol = F2(
 var elm$url$Url$fromString = function (str) {
 	return A2(elm$core$String$startsWith, 'http://', str) ? A2(
 		elm$url$Url$chompAfterProtocol,
-		elm$url$Url$Http,
+		0,
 		A2(elm$core$String$dropLeft, 7, str)) : (A2(elm$core$String$startsWith, 'https://', str) ? A2(
 		elm$url$Url$chompAfterProtocol,
-		elm$url$Url$Https,
+		1,
 		A2(elm$core$String$dropLeft, 8, str)) : elm$core$Maybe$Nothing);
 };
 var elm$browser$Browser$sandbox = function (impl) {
 	return _Browser_element(
 		{
-			init: function (_n0) {
-				return _Utils_Tuple2(impl.init, elm$core$Platform$Cmd$none);
+			aP: function (_n0) {
+				return _Utils_Tuple2(impl.aP, elm$core$Platform$Cmd$none);
 			},
-			subscriptions: function (_n1) {
+			aW: function (_n1) {
 				return elm$core$Platform$Sub$none;
 			},
-			update: F2(
+			aY: F2(
 				function (msg, model) {
 					return _Utils_Tuple2(
-						A2(impl.update, msg, model),
+						A2(impl.aY, msg, model),
 						elm$core$Platform$Cmd$none);
 				}),
-			view: impl.view
+			a_: impl.a_
 		});
 };
 var author$project$Main$main = elm$browser$Browser$sandbox(
-	{init: author$project$Main$init, update: author$project$Main$update, view: author$project$Main$view});
+	{aP: author$project$Main$init, aY: author$project$Main$update, a_: author$project$Main$view});
 _Platform_export({'Main':{'init':author$project$Main$main(
-	elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
+	elm$json$Json$Decode$succeed(0))(0)}});}(this));
 
 var app = Elm.Main.init({ node: document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49") });
 if (document.getElementById("elm-f0111bc4e658d0f98db96260c16f7e49"))
