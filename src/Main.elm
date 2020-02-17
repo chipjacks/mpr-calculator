@@ -27,7 +27,7 @@ type alias Model =
 
 init : Model
 init =
-    Model Neutral "5k" Nothing Nothing Nothing (Err "Enter a recent race time and distance")
+    Model Neutral "5k" Nothing Nothing Nothing (Err "Enter a recent race time and distance.")
 
 
 

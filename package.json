@@ -1,0 +1,15 @@
+{
+  "name": "mpr-calculator",
+  "version": "1.0.0",
+  "description": "Tool for runners to calculate equivalent race times and recommended training paces.",
+  "main": "index.js",
+  "repository": "https://github.com/chipjacks/mpr-calculator.git",
+  "author": "Chip Jackson <chipjacks@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "elm reactor --port=3000"
+  },
+  "dependencies": {
+    "elm": "^0.19.1-3"
+  }
+}
