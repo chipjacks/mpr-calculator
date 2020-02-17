@@ -81,7 +81,7 @@ lookup runnerType distance seconds =
                     Err "That time is too fast!"
 
                 else if l == 0 then
-                    Err "That time is too slow!"
+                    Err "For accuracy, please try entering a faster time."
 
                 else
                     Ok ( runnerType, l )
