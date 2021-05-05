@@ -1,4 +1,4 @@
-module MPRLevel exposing (RunnerType(..), distanceList, equivalentRaceTimes, lookup, paceList, stripTimeStr, timeStrToHrsMinsSecs, timeToSeconds, trainingPaces)
+module MPRLevel exposing (RunnerType(..), distanceList, equivalentRaceTimes, lookup, paceList, stripTimeStr, timeStrToHrsMinsSecs, timeToSeconds, trainingPaces, timeStrToSeconds)
 
 import Array exposing (Array)
 import Dict exposing (Dict)

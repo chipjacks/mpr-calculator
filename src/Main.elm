@@ -193,6 +193,11 @@ viewEquivalentRaceTimes modelDistance level =
 
 distanceListItem : String -> String -> Maybe String -> Html Msg
 distanceListItem distance modelDistance timeStr =
+    let
+        paceStr =
+            Maybe.map (calcPace distance) timeStr
+                |> Maybe.withDefault ""
+    in
     div
         [ class <|
             "item"
@@ -204,9 +209,73 @@ distanceListItem distance modelDistance timeStr =
                    )
         , onClick (Race distance (Maybe.withDefault "" timeStr))
         ]
-        [ div [ class "right floated content" ] [ div [ class "description" ] [ timeStr |> Maybe.withDefault "" |> stripTimeStr |> text ] ]
+        [ div [ class "right floated content" ]
+            [ div [ class "description" ] [ text paceStr ]
+            , div [ class "description" ] [ timeStr |> Maybe.withDefault "" |> stripTimeStr |> text ]
+            ]
         , a [ class "content" ] [ div [ class "header" ] [ text distance ] ]
         ]
+
+
+calcPace : String -> String -> String
+calcPace distanceStr timeStr =
+    let
+        time =
+            timeStrToSeconds timeStr
+                |> Result.withDefault 0
+                |> toFloat
+
+        meters =
+            case distanceStr of
+                "5k" ->
+                    5000
+
+                "8k" ->
+                    8000
+
+                "5 mile" ->
+                    5 * 1609.3
+
+                "10k" ->
+                    10000
+
+                "15k" ->
+                    15000
+
+                "10 mile" ->
+                    10 * 1609.3
+
+                "20k" ->
+                    20000
+
+                "Half Marathon" ->
+                    13.1 * 1609.3
+
+                "25k" ->
+                    25000
+
+                "30k" ->
+                    30000
+
+                "Marathon" ->
+                    26.2 * 1609.3
+
+                _ ->
+                    0
+
+        toMinutesPerMile metersPerSecond =
+            1 / metersPerSecond * 1609.3 / 60
+
+        minPerMile =
+            meters / time |> toMinutesPerMile
+    in
+    (floor minPerMile |> String.fromInt)
+        ++ ":"
+        ++ ((minPerMile - toFloat (floor minPerMile))
+                * 60
+                |> round
+                |> String.fromInt
+           )
 
 
 viewLevel : Result String ( RunnerType, Int ) -> Html Msg
